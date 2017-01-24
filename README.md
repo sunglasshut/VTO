@@ -26,6 +26,7 @@ onError(error)
 ```
 
 ###Notes:
+
 **userId** parameter is optional and it is undefined when VTO user is not logged in or doesn't have a userId session
 variable set.
 **upc** parameter is the universal product code for the glasses on a particular pdp page.
@@ -40,9 +41,12 @@ the specified locale.
 **supportedFeatures** is an object with these options: * Not Implemented yet
  * rendering : Does the client support rendering (e.g. if the browser doesn't support WebGL, the value would
 be false)?
+
  * webcamCapture : Does the client support webcam capture?
 
- ```supportedFeatures: {
+ ```
+supportedFeatures: {
 rendering: true|false,
-webcamCapture:
+webcamCapture: true|false
+}
 ```
