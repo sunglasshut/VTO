@@ -56,16 +56,17 @@ webcamCapture: true|false
 
 ###Errors:
 
-* Error: VtoError Code: 1, message: Failed to fetch If for some reason Vto failed to initialize and load. In VTO express, the "Toggle VTO" button will not show
-up with this error.
+* **Error: VtoError Code: 1**, message: Failed to fetch If for some reason Vto failed to initialize and load. In VTO express, the "Toggle VTO" button will not show up with this error.
 
-* Error: InvalidUserIdError Code: 2, message: Not Found If an invalid UserId is passed to VTO then we return Code 2.
+* **Error: InvalidUserIdError Code: 2**, message: Not Found If an invalid UserId is passed to VTO then we return Code 2.
 
 
 --------------
 
 
-##startCapture
+
+
+##Start Capture
 
 This API call initiates the video capture flow:
 
@@ -116,7 +117,136 @@ onError(error)
 
 ###Errors:
 
- * Error: UnexpectedError Code: 3 This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
+ * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
 
 
  --------------
+
+
+
+##renderGlasses
+
+This API is invoked to tell the VTO component to render a canvas with fifteen frames with glasses on a user's face for a given video and UPC.
+
+See. https://projects.invisionapp.com/share/M981FGQUY#/screens/176408041
+
+```
+VtoApp.renderGlasses(
+divId,
+videoId,
+upc,
+size: {
+width: <pixels>,
+height: <pixels>
+},
+onSuccess(),
+onError(error)
+)
+```
+
+###Notes:
+
+**divId** html div where the renderedCapture image will be shown
+
+**videoId** parameter is the id for a particular user's uploaded video
+
+**upc** parameter is the universal product code for the glasses on a particular pdp page.
+
+**size**
+
+ * width, height: The desired dimensions of the rendered output * *Not Implemented yet*
+
+###Errors:
+ * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
+ * **Error: SkuNotFoundError Code: 4**, Message: This resource is not available. If an invalid UPC was passed into rendered glasses we will show error above.
+ * **Error: VideoNotFoundError Code: 5**, Message: This resource is not available.
+
+
+
+--------------
+
+
+
+##deleteUser
+
+This API will "hard" delete all files and database records for a VTO User.
+
+```
+VtoApp.deleteUser(
+userId,
+onSuccess(),
+onError(error)
+)
+```
+
+Errors:
+ * **Error: InvalidUserIdError Code: 2**, message: Not Found. If an invalid UserId is passed to VTO then we return Code 2.
+ * **Error: UnexpectedError Code: 3**. This is for errors out of our control
+
+
+
+--------------
+
+
+##getImage
+
+This API retrieves images and assets from VTO.
+
+```
+VtoApp.getImage(
+videoId,
+upc,
+{
+index: 0 to 14 or 'current',
+fetchAllAssets: true | false,
+storeOnCloud: true | false,
+canvas: canvas,
+size: {
+width: <pixels>,
+height: <pixels>
+},
+}
+onSuccess(url),
+onError(error)
+)
+```
+
+**Index**: which of the 15 perspectives do you want rendered. pass 'current' to use the perspective currently visible to the user.
+
+**fetchAllAssets**: used to inform the module of your intent with a given UPC. If you only need to render one index for this UPC pass false and the image will be created faster by only downloading a subset of the 3D assets. If you intend to allow the user to rotate their head wearing this UPC pass true so that the method does not complete until all of the 3D assets are downloaded and ready for rotation. * Not Implemented yet 
+
+**storeOnCloud**: pass true if you want this output to be uploaded to the cloud for viewing at a later time via the returned url. If you pass false url in onSuccess will be null. (default is false)
+
+**canvas**: pass in the canvas object that you would like to receive the render.
+
+
+###Errors:
+
+ * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
+ * **Error: SkuNotFoundError Code: 4**, Message: This resource is not available. If an invalid UPC was passed into rendered glasses we will show error above.
+ * **Error: VideoNotFoundError Code: 5**, Message: This resource is not available
+ * **Error: VideoNotLoadedError Code: 6**, Message: This resource is not loaded If the passed in videoId does not match the videoId last used for renderGlasses() * *This Check is Not Implemented yet*
+
+
+
+ --------------
+
+
+
+##isUpcSupported
+
+Used to determine if a given UPC is supported by VTO:
+
+```
+VtoApp.isUpcSupported(
+UPC,
+onSuccess(isSupported),
+onError(error)
+)
+```
+
+**- isSupported** will be either true or false.
+
+
+###Errors:
+ * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
