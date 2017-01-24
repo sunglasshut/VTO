@@ -69,7 +69,12 @@
             }
             function deleteSucceeded() {
                 $( '#sgh_vto_overlay' ).hide( );
-                console.log('deleteSucceeded()')
+                $( '#sgh-vto-overlay_video' ).hide( );
+                $('#sgh-vto-overlay_container').show();
+                currentUserId = "";
+                currentVideoId = "";
+                obj.settings.currentVideo = ""
+                console.log('deleteSucceeded() '+currentVideoId)
             }
             function renderSucceeded() {
                 var videoId = obj.settings.currentVideo
@@ -79,8 +84,10 @@
                 $('sgh-vto-overlay_container').hide();
                 $('.vto-delete-button').on( "click", function() {
                     if ($.cookie('vtoId')){
-                        $.removeCookie('vtoId');
+                        $.cookie("vtoId", null, {expires: 1, path: '/', domain: 'sunglasshut.com'});
+
                     }
+                    deleteSucceeded()
                     $( '#sgh_vto_overlay' ).hide( );
                    // VtoApp.deleteUser(videoId, deleteSucceeded, genericErrorHandler)
                     console.log('CLick Delete'+videoId)
@@ -152,7 +159,7 @@
                             $('#my_vto_div').show();
                             $('#sgh-vto-overlay_video').show();
                             $('#sgh-vto-overlay_container').hide();
-                            console.log('currentVideoId '+currentVideoId)
+                            console.log('#sgh_vto_overlay currentVideoId '+currentVideoId)
                         }
                         $( '#sgh_vto_overlay' ).show( );
                         //$('sgh-vto-overlay_container').show();
