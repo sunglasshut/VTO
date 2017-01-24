@@ -12,7 +12,7 @@ APIs used to integrate the VTO react application into WCS for both mobile and de
 ### init
 This method creates a user or validates that a user exists.
 
-```
+```javascript
 VtoApp.init(
 userId,
 upc,
@@ -46,7 +46,7 @@ onError(error)
  * rendering : Does the client support rendering (e.g. if the browser doesn't support WebGL, the value would be false)?
  * webcamCapture : Does the client support webcam capture?
 
- ```
+ ```javascript
 supportedFeatures: {
 rendering: true|false,
 webcamCapture: true|false
@@ -70,7 +70,7 @@ webcamCapture: true|false
 
 This API call initiates the video capture flow:
 
-```
+```javascript
 VtoApp.startCapture(
 divId,
 userId,
@@ -130,7 +130,7 @@ This API is invoked to tell the VTO component to render a canvas with fifteen fr
 
 See. https://projects.invisionapp.com/share/M981FGQUY#/screens/176408041
 
-```
+```javascript
 VtoApp.renderGlasses(
 divId,
 videoId,
@@ -171,7 +171,7 @@ onError(error)
 
 This API will "hard" delete all files and database records for a VTO User.
 
-```
+```javascript
 VtoApp.deleteUser(
 userId,
 onSuccess(),
@@ -192,7 +192,7 @@ Errors:
 
 This API retrieves images and assets from VTO.
 
-```
+```javascript
 VtoApp.getImage(
 videoId,
 upc,
@@ -237,7 +237,7 @@ onError(error)
 
 Used to determine if a given UPC is supported by VTO:
 
-```
+```javascript
 VtoApp.isUpcSupported(
 UPC,
 onSuccess(isSupported),
