@@ -9,6 +9,10 @@ APIs used to integrate the VTO react application into WCS for both mobile and de
 
 ## APIs
 
+### How to access the VTO API 2.0?
+ * Mobile Production: Download https://d1phjbsp802ne8.cloudfront.net/vto-mobile-application.js
+ * Desktop Production: Download https://d1phjbsp802ne8.cloudfront.net/vto-desktop-application.js
+
 ### init
 This method creates a user or validates that a user exists.
 
