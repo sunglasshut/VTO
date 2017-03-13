@@ -86,8 +86,6 @@
                         .removeClass('vto-video-edit-modal-delete')
                         .removeClass('vto-video-edit-modal-retake')
                 }
-               
-                //$('HTML, body').removeClass('vto-bg-no-scroll')
                 $("html").removeClass("hide-body")
                 $('body').removeClass('fullscreen-open');
                 $('html').css('top','');
