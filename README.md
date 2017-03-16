@@ -86,9 +86,15 @@ height: <pixels>
 options: {
 captureMode: fileCapture | webcamCapture,
 abTests,
+onCloseVto: function(),
+onPrivacyPolicy: function(),
+showWelcomePage: true | false, (defaults to true, MOBILE Only)
+showScalingQuestions: true | false, (defaults to false)
+showReviewWithGlasses: true | false, (defaults to true)
+showSaveToAccount: true | false, (defaults to true, MOBILE Only)
 },
-onSaveToAccount(videoId),
-onContinueWithoutSaving(videoId),
+onSaveToAccount(videoId, {gender, fit}),
+onContinueWithoutSaving(videoId, {gender, fit}),
 onError(error)
 )
 ```
@@ -115,9 +121,25 @@ onError(error)
 
   * **abTests** object option is intended to be used for A/B tests not related to text text strings (e.g. the VTOcomponent flow, visual styling, etc.) * *Not Implemented yet*
 
-**onSaveToAccount** : The success callback invoked if the user clicks "Save to Account". This function should accept the parameter videoId.
+  * **onCloseVto** : callback for when the back button is pressed during capture
 
-**onContinueWithoutSaving** : The success callback invoked if the user clicks "Continue Without Saving". This function should accept the parameter videoId.
+  * **onPrivacyPolicy** : callback for when the privacy policy link is clicked. If this is not passed in, the privacy
+policy text/link will not be shown
+
+  * **showWelcomePage** : option for hiding welcome page on vto mobile
+
+  * **showScalingQuestions** : option for hiding scaling questions
+
+  * **showReviewWithGlasses** : option for hiding review with glasses/preview page
+
+  * **onSaveToAccount** : option for hiding save to account page on vto mobile
+
+**onSaveToAccount** The success callback invoked if the user clicks "Save to Account". This function should accept
+the parameter videoId. 
+
+**onContinueWithoutSaving** The success callback invoked if the user clicks "Continue Without Saving". This function
+should accept the parameter videoId.
+
 
 ###Errors:
 
@@ -144,7 +166,10 @@ width: <pixels>,
 height: <pixels>
 },
 onSuccess(),
-onError(error)
+onError(error),
+options: {
+showRotateBar: true | false (defaults to false)
+},
 )
 ```
 
@@ -159,6 +184,10 @@ onError(error)
 **size**
 
  * width, height: The desired dimensions of the rendered output * *Not Implemented yet*
+
+ **options**
+ 
+ * **showRotateBar:**  Option to show the rotate bar on top of the rendering canvas
 
 ###Errors:
  * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
@@ -254,3 +283,79 @@ onError(error)
 
 ###Errors:
  * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
+
+
+##VTO Mobile Analytics Config:
+
+```javascript
+var analyticsConfig = {
+welcome: {
+onPageLoad: function() {}
+startCaptureElementClass: '',
+onStartCapture: function() {}
+},
+instructions: {
+onPageLoad: function() {}
+onOpenCamera: function() {}
+takeVideoElementClass: ''
+},
+uploadingVideo: {
+onPageLoad: function() {}
+},
+genderSelect: {
+onPageLoad: function() {}
+genderMensElementClass: '',
+genderWomensElementClass: '',
+genderNextElementContentBox: ''
+},
+sizeSelect: {
+onPageLoad: function() {}
+sizeSmallElementClass: '',
+sizeAverageElementClass: '',
+sizeLargeElementClass: '',
+sizeNextElementContentBox: ''
+},
+analyzingVideo: {
+onPageLoad: function() {}
+},
+reviewWithoutGlasses: {
+onPageLoad: function() {}
+retakeElementClass: '',
+continueElementClass: '',
+onFaceSwipe: function() {}
+onRetake: function() {}
+onContinue: function() {}
+},
+mappingGlasses: {
+onPageLoad: function() {}
+},
+reviewWithGlasses: {
+onPageLoad: function() {}
+retakeElementClass: '',
+continueElementClass: '',
+onFaceSwipe: function() {}
+onRetake: function() {}
+onContinue: function() {}
+},
+saveToAccount: {
+onPageLoad: function() {}
+saveElementClass: '',
+onSave: function() {}
+continueElementClass: '',
+onContinueNoSave: function() {}
+},
+uploadFailed: {
+onPageLoad: function() {}
+uploadRetryClass: '',
+},
+videoTooLong: {
+onPageLoad: function() {}
+uploadRetryClass: '',
+},
+processingError: {
+onPageLoad: function() {}
+uploadRetryClass: '',
+}
+}
+
+```

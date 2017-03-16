@@ -19,9 +19,6 @@ html.vto-bg-no-scroll {
 	width: 100%;
 	position: fixed !important;
 }
-.vto-disable-scrolling #global-banner {
-	display:  none !important;
-}
 
 #sgh_vto_overlay {
     width: 100%;
@@ -51,6 +48,16 @@ html.vto-bg-no-scroll {
 #sgh_vto_overlay .info-container p span,
 #sgh_vto_overlay .info-container p {
   font-size:  13px !important;
+  color: #111;
+}
+
+#sgh_vto_overlay .info-container p.swatch,
+#sgh_vto_overlay .info-container p.fit {
+	color: #666666;
+}
+
+#sgh_vto_overlay .info-container p span {
+	color: #111;
 }
 
 #sgh_vto_overlay .brand {
@@ -76,7 +83,7 @@ html.vto-bg-no-scroll {
 }
 .vto-application .renderer {
 	position: relative;
-	height: height: 100%;
+	height: 100%;
     overflow: hidden;
 }
 
@@ -90,30 +97,35 @@ html.vto-bg-no-scroll {
 		display: none;
 		height: 100%;
 	}
+
+/* 	---------------
+	Back Buttons
+	--------------
+*/	
 	.vto-application .back-bar {
 		padding: 10px 10px !important;
 		border-bottom: solid 1px #ebebeb !important;
 		height: initial !important;
 	}
-	.vto-application .vto-mobile h4,
-	.vto-application .video-capture .open-camera {
-		font-size: 15px !important;
-	}
 
 	#sgh-vto-overlay-video-buttons a,
-	.vto-application .vto-mobile h5 {
+	.vto-application .vto-mobile h5.back-bar-text {
 		margin: 0px;
 		font-size: 13px !important;
 		text-transform: none;
     	text-decoration: none;
+    	color: #666666 !important;
 	}
 	.back-bar-arrow {
+		margin-left: 0px !important; 
+    	margin-right: 5px !important;
 	    width: 5px !important;
-	    height: inherit;
+	    height: inherit !important;
+	    fill: #666666 !important;
 	}
+
 	#sgh-vto-overlay-video-buttons {
 		padding: 0px 10px;
-	    overflow: hidden;
 	    z-index: 110;
 	    left: 0px;
 	    width: 100%;
@@ -123,6 +135,20 @@ html.vto-bg-no-scroll {
 	    background-color: #fff;
 	    text-align:  left;
 	}
+	#sgh-vto-overlay-video-buttons svg {
+		position:  relative;
+		top: 3px;
+	}
+
+	.vto-application .vto-mobile h4,
+	.vto-application .video-capture .open-camera {
+		font-size: 15px !important;
+	}
+
+	.vto-application .question-container .button {
+		border-left:  #999 solid 1px !important;
+	}
+	
 	#sgh-vto-overlay-video-buttons a {
 	    width: initial;
 	}
@@ -198,7 +224,7 @@ html.vto-bg-no-scroll {
 	}
 	
 	#sgh_vto_overlay.active div#sgh-vto-video-container {
-	    background-color:  #fff;
+	    
 	    width: 100%;
 	    top: 0;
 	    left: 0;
@@ -211,13 +237,19 @@ html.vto-bg-no-scroll {
 	    align-items: stretch;
 	    text-align: center;
 	}
-
-	#sgh_vto_overlay.active #sgh-vto-vtomodel-container {
+	
+	#sgh_vto_overlay.active div#sgh-vto-video-container.active,
+	#sgh_vto_overlay #sgh-vto-vtomodel-container.active{
 		background-color:  #fff;
+		background-color:  #fff;
+	}
+
+	#sgh_vto_overlay #sgh-vto-vtomodel-container {
+		
 	    position: absolute;
 	    width: 100%;
 	    top: 0;
-	    right: 0%;
+	    right: -100%;
 	    bottom: 0;
 	    height:  100%;
     	z-index: 100;
@@ -336,12 +368,16 @@ html.vto-bg-no-scroll {
 	.vto-application .renderer {
 	    height: 100%;
 	}
+	#sgh_vto_overlay .info-container p.fit {
+		display: none;
+	}
 }
 
 @media screen and (min-height: 630px) { 
 	.vto-application .renderer {
 	    height: 100%;
 	}
+
 }
 
 

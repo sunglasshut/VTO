@@ -6,6 +6,7 @@
     	*/
         currentVideo: "",
         currentUserId: "",
+        noVTOModel: true,
         glassesUpc: $('#upc').text()
     };
     var i = {
@@ -84,31 +85,19 @@
                 ).appendTo('#pageContainer')
 
             $('.sgh-vto-overlay-close').on( "click", function() {
-                obj.vtoClose()
+                obj.closeVTOModelWindow()
+                obj.analyticsTrack('closed vto');
             });
            
             console.log('vtoElements()');
         },
-        vtoClose: function() {
-            $('#pageContainer').removeClass('vto-disable-scrolling').bind("touchmove")
-            $( "#sgh_vto_overlay" ).removeClass('active').hide()
-            if(  $('#sgh-vto-video-edit-container').is(":visible") == true ){ 
-                $('#sgh-vto-video-edit-container')
-                    .hide()
-                    .addClass('vto-video-edit-modal-initial')
-                    .removeClass('vto-video-edit-modal-delete')
-                    .removeClass('vto-video-edit-modal-retake')
-            }
-            $('html').removeClass('hide-body')
-            $('body').removeClass('fullscreen-open')
-            $('html').css('top','')
-            console.log('onCloseVto')
-        },
         analyticsTrack: function(linkName) {
             var obj = this
             var videoId = obj.settings.currentVideo
+            var noVTOModel = obj.settings.noVTOModel;
             var user = 'new'
-            if(videoId){
+           // console.log('noVTOModel: '+noVTOModel)
+            if(videoId && noVTOModel !== true){
                 user = 'returning'
                 //console.log('returning')
             }
@@ -127,24 +116,51 @@
                 'cntry': utag_data.country || ""
             };
             _trackAnalytics(track);
+            console.log('track: sgh: vto: '+user+': '+linkName);
         },
-        onSupportedUPC: function(isSupported, data) {
-            console.log('isSupported: '+isSupported)
+        vtoClose: function() {
+            
+            $('#pageContainer').removeClass('vto-disable-scrolling').bind("touchmove")
+            $( "#sgh_vto_overlay" ).removeClass('active').hide()
+            if(  $('#sgh-vto-video-edit-container').is(":visible") == true ){ 
+                $('#sgh-vto-video-edit-container')
+                    .hide()
+                    .addClass('vto-video-edit-modal-initial')
+                    .removeClass('vto-video-edit-modal-delete')
+                    .removeClass('vto-video-edit-modal-retake');
+            }
+            $('html').removeClass('hide-body')
+            $('body').removeClass('fullscreen-open')
+            $('html').css('top','');
+            
+            console.log('onCloseVto');
+        },
+        closeVTOModelWindow: function () {
+            var obj = this
+            $( "#sgh-vto-vtomodel-container" ).delay(100).animate({
+                 right: "-100%",
+            }, 300 , function() {
+                $( '#sgh_vto_overlay .info-container' ).hide( );
+                $(this).addClass('vto-hide')
+                obj.vtoClose()
+            });
+            console.log("closeVTOModelWindow")
         },
         genericErrorHandler:  function(error) {
             var obj = this
-            console.log('error: '+error);
             $('#vto_app_root').hide();
             $('#sgh-vto-overlay_video').hide();
             $("#vto_start_button").addClass('hide')
-            //obj.analyticsTrack('error: generic')
+            obj.analyticsTrack('error: generic: '+error)
         },
         vtoApplication: function(data) {
             var obj = this
             var glassesUpc = obj.settings.glassesUpc
             var vtoRoot = "#vto_app_root"
-            var currentUserId = "";
-            var currentVideoId = "";
+            var currentUserId = obj.settings.currentUserId;
+            var currentVideoId = obj.settings.currentVideo;
+            var videoRetake = false;
+            var noVTOModel = obj.settings.noVTOModel;
             //var currentUserId = "8A9C9D28-5C67-49FD-91D8-CDDFE7AF56AA";
             //var currentVideoId = "4CC97D29-9A26-4B26-A4B1-53EF42D5BDD3";
             //var currentUserId = "77560126-d27d-4ff6-afb3-bd1cbb90d887";
@@ -153,11 +169,7 @@
             var pageType = utag.data.page_type
             var rendererSuccess = false
 
-            if ($.cookie('vtoId')){
-                var vtoCookie = JSON.parse($.cookie('vtoId'))
-                currentUserId = vtoCookie.userId
-                currentVideoId = vtoCookie.videoId
-            }
+            
             
             function getProductInfo(){
                 if($('.fullscreenable .info-container').length < 1){
@@ -166,6 +178,7 @@
                 var brand = $('#update_cart_total .info-container').find('.brand').text()
                 var price = $('#update_cart_total .info-container').find('.price').text()
                 var style = $('#update_cart_total .info-container').find('.style').first().text()
+                var fit   = $('.styleInfo ').find('li:eq(5)').html()
                 var swatch = $('.swatchesTitle').find('h3').html()
                 var polar = $('#update_cart_total .info-container > .catalog-polarized').length
                 var polarIcon = (polar) ? '<p class="catalog-polarized">Polarized</p>':'';
@@ -176,20 +189,19 @@
                     polarIcon +
                     '<p class="price">'+price+'</p>'+
                     '<p class="style">'+style+'</p>'+
-                    '<p class="swatch">'+swatch+'</p>'
-                      
+                    '<p class="swatch">'+swatch+'</p>'+
+                    '<p class="fit">'+fit+'</p>'
                 )
             }
 
             function deleteSucceeded() {
+                
                 if ($.cookie('vtoId')){
                     $.cookie("vtoId", null, {expires: 1, path: '/', domain: 'sunglasshut.com'});
                 }
-                closeVTOModelWindow()
-                
-                if(  $('.fullscreenable div.renderer').find('.sgh-vto-rotate').is(":visible") == true ){  
-                    $('.fullscreenable div.renderer').find('.sgh-vto-rotate').hide();     
-                }
+                obj.closeVTOModelWindow();
+                $('#sgh-vto-video-container').addClass('active')             
+                $( "#sgh-vto-vtomodel-container" ).removeClass('active')
                 $('a.sgh-vto-overlay-open').find('span').text('TRY THEM ON')
                 $( '#sgh-vto-overlay_video' ).hide( );
                 $( '#sgh_vto_overlay .info-container' ).hide( );
@@ -201,22 +213,12 @@
                         .addClass('vto-video-edit-modal-initial')
                         .removeClass('vto-video-edit-modal-delete')
                         .removeClass('vto-video-edit-modal-retake')
-                currentUserId = "";
+                videoRetake = false;        
                 currentVideoId = "";
                 obj.settings.currentVideo = ""
-                obj.settings.currentUserId = ""
                 obj.analyticsTrack('option modal: delete modal: confirmed')
+                noVTOModel = true;
                 //console.log('deleteSucceeded() '+currentVideoId)
-            }
-
-            function closeVTOModelWindow() {
-                $( "#sgh-vto-vtomodel-container" ).animate({
-                     right: "-100%",
-                }, 300 , function() {
-                    $(this).addClass('vto-hide')
-                    obj.vtoClose()
-                });
-                console.log("closeVTOModelWindow")
             }
 
             function renderSucceeded() {
@@ -227,14 +229,9 @@
                 obj.settings.currentUserId = currentUserId
                 var cookie = $.cookie("vtoId")
                 $('#sgh-vto-overlay-video-buttons.vto-hide').removeClass('vto-hide')
-                             
-                $( "#sgh-vto-vtomodel-container" ).removeClass('vto-hide').animate({
-                    right: "0",
-                }, 300, function() {
+                $('#sgh-vto-video-container').removeClass('active')             
+               
                     $('#vto-open-edit').delay( 300 ).fadeIn( 300 );
-                    if($('.fullscreenable .sgh-vto-rotate').length < 1){
-                        $('.fullscreenable div.renderer:not(.preview-page)').prepend('<div class="sgh-vto-rotate vto-hide"><svg width="62px" height="39px" viewBox="0 0 62 39" version="1.1" class="rotate-icon"><g id="Ray-Ban-Mobile-VTO" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="7.0-Reveal---Final-Output-v1" transform="translate(-157.000000, -487.000000)" fill="#000000"><g id="Rotate-Icon" transform="translate(157.000000, 487.000000)"><g id="Group"><g id="Group-2"><polygon id="Fill-1" points="55.3812997 -0.000202399732 55.3812997 1.68848603 59.7993295 1.68848603 59.7993295 8.32112524 61.1156405 8.32112524 61.1156405 -0.000202399732"></polygon><polygon id="Fill-2" points="0 -0.000202399732 0 8.70501007 1.31578509 8.70501007 1.31578509 1.68848603 6.48636822 1.68848603 6.48636822 -0.000202399732"></polygon><path d="M31.2754017,12.672652 C26.7337869,12.672652 22.622353,12.0276715 19.1351544,11.154654 C8.18079649,8.41146299 1.06914112,3.03572611 0.772011395,2.80768908 L1.57925764,1.06975005 C1.65025324,1.12372331 8.79556579,6.51632684 19.4953913,9.18260597 C29.3369589,11.6356907 44.2991497,12.216578 59.6873142,1.05828073 L60.4640586,2.81983306 C50.0908129,10.3416818 39.9084664,12.672652 31.2754017,12.672652" id="Fill-3"></path></g><path d="M6.33754041,25.7398486 L7.23997334,25.7398486 C8.61413259,25.7398486 9.12687858,26.2525946 9.12687858,28.0164408 C9.12687858,29.780287 8.61413259,30.2930329 7.23997334,30.2930329 L6.33754041,30.2930329 L6.33754041,25.7398486 Z M6.33754041,32.3850366 C6.78875687,32.3850366 7.3220127,32.3645267 7.65017013,32.3235071 L9.45503601,38.4559491 L12.0392758,38.4559491 L9.88574264,31.7492315 C10.7471559,31.3595446 11.6700987,30.3955821 11.6700987,28.0164408 C11.6700987,24.8579255 10.2139001,23.6478449 7.36303238,23.6478449 L3.79432031,23.6478449 L3.79432031,38.4559491 L6.33754041,38.4559491 L6.33754041,32.3850366 Z M14.0492401,34.8667272 C14.0492401,36.9587308 15.2798304,38.6610475 17.9461096,38.6610475 C20.6123887,38.6610475 21.8429791,36.9587308 21.8429791,34.8667272 L21.8429791,27.2370669 C21.8429791,25.1450632 20.6123887,23.4427465 17.9461096,23.4427465 C15.2798304,23.4427465 14.0492401,25.1450632 14.0492401,27.2370669 L14.0492401,34.8667272 Z M16.5924602,27.2985964 C16.5924602,26.191065 16.9206176,25.6578092 17.9461096,25.6578092 C18.9716015,25.6578092 19.299759,26.191065 19.299759,27.2985964 L19.299759,34.8051976 C19.299759,35.912729 18.9716015,36.4459848 17.9461096,36.4459848 C16.9206176,36.4459848 16.5924602,35.912729 16.5924602,34.8051976 L16.5924602,27.2985964 Z M25.7808683,38.4559491 L28.3240883,38.4559491 L28.3240883,25.8629076 L30.7852691,25.8629076 L30.7852691,23.6478449 L23.3196875,23.6478449 L23.3196875,25.8629076 L25.7808683,25.8629076 L25.7808683,38.4559491 Z M35.5845715,26.6012618 L35.6255912,26.6012618 L36.6305733,32.9593121 L34.5795894,32.9593121 L35.5845715,26.6012618 Z M34.2104123,35.1743747 L36.9997505,35.1743747 L37.4509669,38.4559491 L39.9121477,38.4559491 L37.184339,23.6478449 L34.0258237,23.6478449 L31.2980151,38.4559491 L33.7591958,38.4559491 L34.2104123,35.1743747 Z M42.8655646,38.4559491 L45.4087847,38.4559491 L45.4087847,25.8629076 L47.8699654,25.8629076 L47.8699654,23.6478449 L40.4043838,23.6478449 L40.4043838,25.8629076 L42.8655646,25.8629076 L42.8655646,38.4559491 Z M56.4635881,38.4559491 L56.4635881,36.2408864 L51.9104038,36.2408864 L51.9104038,31.8928004 L55.1919781,31.8928004 L55.1919781,29.6777378 L51.9104038,29.6777378 L51.9104038,25.8629076 L56.1764504,25.8629076 L56.1764504,23.6478449 L49.3671837,23.6478449 L49.3671837,38.4559491 L56.4635881,38.4559491 Z" id="ROTATE-Copy"></path></g></g></g></g></svg></div>')
-                    }
                     if(rendererSuccess != true){
                         getProductInfo()
                        
@@ -269,14 +266,17 @@
                             obj.analyticsTrack('option modal: retake modal: cancel' )
                          });
                         $('.vto-retake-confirm').on( "click", function() {
-                            closeVTOModelWindow()
-                            startCaptureFlow()
+                            $( "#sgh-vto-vtomodel-container" ).delay(100).animate({
+                                 right: "-100%",
+                            }, 300 , function() {
+                                $('#sgh-vto-video-container').addClass('active')             
+                                $( "#sgh-vto-vtomodel-container" ).removeClass('active')
+                                startCaptureFlow()
+                            });
+                           
                             obj.analyticsTrack('option modal: retake modal: confirmed' )
-                            $( '#sgh_vto_overlay .info-container' ).hide( );
+                            videoRetake = true;            
                             $('#vto-open-edit').hide();
-                            if(  $('.fullscreenable div.renderer').find('.sgh-vto-rotate').is(":visible") == true ){  
-                                $('.fullscreenable div.renderer').find('.sgh-vto-rotate').hide();     
-                            }
                             if(  $('#sgh-vto-video-edit-container').is(":visible") == true ){ 
                                 $('#sgh-vto-video-edit-container')
                                     .hide()
@@ -293,12 +293,12 @@
                             obj.analyticsTrack('option modal: delete modal: cancel')
                          });
                         $('.vto-delete-confirm').on( "click", function() {
-                            VtoApp.deleteUser(
+                            /*VtoApp.deleteUser(
                                 obj.settings.currentUserId,
                                 deleteSucceeded(),
                                 obj.genericErrorHandler
-                            )
-                            //deleteSucceeded()
+                            )*/
+                            deleteSucceeded()
                            
                          });
                         $('.vto-delete-button').on( "click", function() {
@@ -310,25 +310,25 @@
                            obj.analyticsTrack('option modal: delete modal:')
                            // console.log('CLick Delete'+videoId)
                         });
+                        
+                        $('a.sgh-vto-overlay-open').find('span').text('VIEW YOUR VIRTUAL MODEL')
                         rendererSuccess = true
-                      //  console.log('click events '+rendererSuccess)
+                       // console.log('analyticsTrack - vto pdp '+rendererSuccess)
                     }
-                    $('.fullscreenable div.renderer:not(.preview-page)').find('.sgh-vto-rotate').delay( 800 ).fadeIn( 300 );
-                    $('#sgh_vto_overlay .info-container').delay( 300 ).fadeIn( 300 );
+                    $('#sgh_vto_overlay .info-container').delay( 200 ).fadeIn( 300 );
                     $('sgh-vto-overlay_container').hide();
                     obj.analyticsTrack('vto pdp:' )
-                });
+                    videoRetake = false;
+                    noVTOModel = false;
                 console.log('cookie: '+cookie) 
                console.log('render-success')
             }
             
-            
-
             var analyticsConfig = {
                 instructions: {
                     onPageLoad: function () {
                        obj.analyticsTrack('step 1: instructions')
-                       console.log('analyticsConfig - instructions')
+                       //console.log('analyticsConfig - instructions')
                         //showAnalyticsAlert('instructions', 'onPageLoad');
                     },
                     //takeVideoElementClass: 'vto-take-video'
@@ -336,14 +336,14 @@
                 uploadingVideo: {
                     onPageLoad: function () {
                         obj.analyticsTrack('step 2: uploaded video')
-                        console.log('analyticsConfig - uploadingVideo')
+                        //console.log('analyticsConfig - uploadingVideo')
                        // showAnalyticsAlert('uploadingVideo', 'onPageLoad');
                     }
                 },
                 genderSelect: {
                     onPageLoad: function () {
                         obj.analyticsTrack('step 3: select gender')
-                        console.log('analyticsConfig - genderSelect')
+                        //console.log('analyticsConfig - genderSelect')
                        // showAnalyticsAlert('genderSelect', 'onPageLoad');
                     },
                     //genderMensElementClass: 'vto-mens',
@@ -353,7 +353,7 @@
                 sizeSelect: {
                     onPageLoad: function () {
                         obj.analyticsTrack('step 3: select size')
-                        console.log('analyticsConfig - sizeSelect')
+                        //console.log('analyticsConfig - sizeSelect')
                        // showAnalyticsAlert('sizeSelect', 'onPageLoad');
                     },
                    // sizeSmallElementClass: 'vto-small',
@@ -364,14 +364,14 @@
                 analyzingVideo: {
                     onPageLoad: function () {
                         obj.analyticsTrack('step 3: analyzing video')
-                        console.log('analyticsConfig - analyzingVideo')
+                       // console.log('analyticsConfig - analyzingVideo')
                        // showAnalyticsAlert('analyzingVideo', 'onPageLoad');
                     }
                 },
                 reviewWithoutGlasses: {
                     onPageLoad: function () {
                         obj.analyticsTrack('step 4: review without glasses')
-                        console.log('analyticsConfig - reviewWithoutGlasses')
+                        //console.log('analyticsConfig - reviewWithoutGlasses')
                        // showAnalyticsAlert('reviewWithoutGlasses', 'onPageLoad');
                     },
                    // retakeElementClass: 'without-glasses-retake',
@@ -383,7 +383,7 @@
                 mappingGlasses: {
                     onPageLoad: function () {
                         obj.analyticsTrack('step 4: mapping glasses')
-                        console.log('analyticsConfig - mappingGlasses')
+                        //console.log('analyticsConfig - mappingGlasses')
                       //  showAnalyticsAlert('mappingGlasses', 'onPageLoad');
                     }
                 },
@@ -391,23 +391,21 @@
                     onPageLoad: function () {
                         
                         obj.analyticsTrack('step 5: review with glasses')
-                        console.log('analyticsConfig - reviewWithGlasses - reviewTakeToModel()')
+                       // console.log('analyticsConfig - reviewWithGlasses - reviewTakeToModel()')
                        
                         //showAnalyticsAlert('reviewWithGlasses', 'onPageLoad');
                     },
-                    //retakeElementClass: 'with-glasses-retake',
-                    //continueElementClass: 'with-glasses-continue',
+                    onContinueNoSave: function() {
+                        obj.analyticsTrack('step 6: onContinueNoSave')
+                    },
                     onFaceSwipe: function () {
-                        $('.sgh-vto-rotate').delay( 1000 ).fadeOut( 500 );
                         obj.analyticsTrack('step 5: review with glasses : swipe face')
-                        //console.log('swipe');
-                       // showAnalyticsAlert('reviewWithGlasses', 'onFaceSwipe');
                     }
                 },
                 saveToAccount: {
                     onPageLoad: function() {
                         obj.analyticsTrack('step 6: save to account')
-                        console.log('step 6: save to account')
+                       // console.log('step 6: save to account')
                         //takeToModel()
                     },
                     onSave: function() {console.log('step 6: save to account')},
@@ -416,7 +414,7 @@
                 uploadFailed: {
                     onPageLoad: function () {
                         obj.analyticsTrack('error: uploading failed')
-                        console.log('analyticsConfig - uploadFailed')
+                        //console.log('analyticsConfig - uploadFailed')
                         //showAnalyticsAlert('uploadFailed', 'onPageLoad');
                     },
                    // uploadRetryClass: 'upload-failed-retry'
@@ -424,7 +422,7 @@
                 videoTooLong: {
                     onPageLoad: function () {
                         obj.analyticsTrack('error: video too long')
-                        console.log('analyticsConfig - videoTooLong')
+                       // console.log('analyticsConfig - videoTooLong')
                         //showAnalyticsAlert('videoTooLong', 'onPageLoad');
                     },
                     //uploadRetryClass: 'video-too-long-retry'
@@ -432,52 +430,66 @@
                 processingError: {
                     onPageLoad: function () {
                         obj.analyticsTrack('error: video processing')
-                        console.log('analyticsConfig - processingError')
+                       // console.log('analyticsConfig - processingError')
                        // showAnalyticsAlert('processingError', 'onPageLoad');
                     },
                    // uploadRetryClass: 'processing-error-retry'
                 }
 
             }
-            function takeToModel() {
-                //var videoId = currentUserId;
-                //createCookie(videoId)
-                console.log('takeToModel:' +videoId)
-                
-            }
 
             function renderGlassesFlow(upc) {
-                if (renderedGlasses !== upc && currentVideoId) {
-                    $("#video-id").text(currentVideoId);
-                    VtoApp.renderGlasses('vto_modal_app_root',
-                          currentVideoId,
-                          glassesUpc,
-                          {width:$(window).width(), height:$(window).width()},
-                          renderSucceeded,
-                          obj.genericErrorHandler,
-                          generateOptions());
-                    renderedGlasses = upc;
+                console.log('renderedGlasses" '+renderedGlasses+ " upc: "+upc+" currentVideoId: "+currentVideoId)
+                if (renderedGlasses !== upc && currentVideoId || videoRetake === true ) {
+                          
+                    $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(100).animate({
+                        right: "0",
+                    }, 300, function() {
+                        $("#video-id").text(currentVideoId);
+                        VtoApp.renderGlasses('vto_modal_app_root',
+                              currentVideoId,
+                              glassesUpc,
+                              {width:$(window).width(), height:$(window).width()},
+                              renderSucceeded,
+                              obj.genericErrorHandler,
+                              {showRotateBar: true}
+                            );
+                        renderedGlasses = upc;
+                        videoRetake = false; 
+                    })
                     console.log('renderGlassesFlow')
+                }else{
+                    $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(100).animate({
+                        right: "0",
+                    }, 300)
+                    $('#vto-open-edit').fadeIn( 200 );
+                    $('#sgh_vto_overlay .info-container').fadeIn( 200 );
+                    obj.analyticsTrack('vto pdp: reopened' )
+                    //console.log('analyticsTrack - vto pdp: reopened ')
                 }
+                $('#sgh-vto-video-container').removeClass('active')      
             }
 
             function generateOptions() {
                 console.log('generateOptions');
             }
 
-
             function createCookie(videoId) {
                 currentVideoId = videoId;
                 //$("#vto_toggle_button").show();
                 //$("#mainImageContainer").hide();
+                 $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(50).animate({
+                    right: "0",
+                }, 300, function() {
                 VtoApp.renderGlasses('vto_modal_app_root',
                                   currentVideoId,
                                   glassesUpc,
                                   {width:$(window).width(), height:$(window).width()},
                                   renderSucceeded,
                                   obj.genericErrorHandler,
-                                  generateOptions
+                                  {showRotateBar: true}
                                   );
+                })
                 console.log('createCookie')
             }
 
@@ -497,9 +509,10 @@
                     {width:$(window).width(), height:$(window).width()},
                     {
                         onCloseVto: obj.vtoClose,
-                        onPrivacyPolicy: onPrivacyPolicy,
                         showWelcomePage: false,
-                        showScalingQuestions: true
+                        showScalingQuestions: true,
+                        showReviewWithGlasses: false,
+                        showSaveToAccount: false
                     },
                     createCookie,
                     createCookie,
@@ -545,11 +558,14 @@
                                 obj.settings.currentVideo = currentVideoId
                                 $( "#sgh_vto_overlay" ).addClass('active').show();
                                 renderGlassesFlow(glassesUpc);
+                                noVTOModel = true;
+                                //console.log('Open OverLay - Current ID: '+currentVideoId)
                             }else{
                                 $( "#sgh_vto_overlay" ).addClass('active').show()
-                                    startCaptureFlow();
+                                startCaptureFlow();
+                                 //console.log('Open OverLay - New ID: '+currentVideoId)
                             }
-                            $('html').css('top',$(window).scrollTop() * -1);
+                           // $('html').css('top',$(window).scrollTop() * -1);
                             $("html").addClass("hide-body")
                         });
                     }, 
@@ -558,9 +574,6 @@
 
                 $(".vto-start-button").on( "click", function() {
                     startCaptureFlow()
-                    if(  $('.fullscreenable div.renderer').find('.sgh-vto-rotate').is(":visible") == true ){  
-                        $('.fullscreenable div.renderer').find('.sgh-vto-rotate').hide();     
-                    }
                     if(  $('#sgh-vto-video-edit-container').is(":visible") == true ){ 
                         $('#sgh-vto-video-edit-container')
                             .hide()
@@ -568,8 +581,6 @@
                             .removeClass('vto-video-edit-modal-delete')
                             .removeClass('vto-video-edit-modal-retake')
                     }
-                    
-
                  });
 
             }
@@ -581,7 +592,7 @@
         vtoAPI: function() {
             var obj = this
             var isSupported
-            var url = 'https://s3.amazonaws.com/vto-react-staging/vto-mobile-application.js'
+            var url = 'https://s3.amazonaws.com/vto-react-integration/vto-mobile-application.js'
             window.jQuery.ajax(url, {
                 type: 'get',
                 dataType: 'script',
@@ -591,11 +602,23 @@
                 success: function(data) {
                     console.log('UPC: '+obj.settings.glassesUpc)
                     function onSupportedUPC(isSupported) {
+                        if ($.cookie('vtoId')){
+                            var vtoCookie = JSON.parse($.cookie('vtoId'))
+                            obj.settings.currentUserId = vtoCookie.userId
+                            obj.settings.currentVideo = vtoCookie.videoId
+                            if (obj.settings.currentVideo){
+                                obj.settings.noVTOModel = false
+                            }
+                        }
                         if (isSupported === true){
+                            
                             obj.vtoElements(),
                             obj.vtoApplication(data)
+                            obj.analyticsTrack('supported upc:')
+                        }else{
+                             obj.analyticsTrack('not supported upc:')
                         }
-                        console.log('onSupportedUPC:'+isSupported)
+                       // console.log('onSupportedUPC:'+isSupported)
                     }
                     VtoApp.isUpcSupported(
                         obj.settings.glassesUpc,
