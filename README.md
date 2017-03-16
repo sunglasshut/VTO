@@ -29,7 +29,7 @@ onError(error)
 )
 ```
 
-###Notes:
+### Notes:
 
 **userId** parameter is optional and it is undefined when VTO user is not logged in or doesn't have a userId session variable set.
 
@@ -58,7 +58,7 @@ webcamCapture: true|false
 ```
 
 
-###Errors:
+### Errors:
 
 * **Error: VtoError Code: 1**, message: Failed to fetch If for some reason Vto failed to initialize and load. In VTO express, the "Toggle VTO" button will not show up with this error.
 
@@ -70,7 +70,7 @@ webcamCapture: true|false
 
 
 
-##Start Capture
+## Start Capture
 
 This API call initiates the video capture flow:
 
@@ -99,7 +99,7 @@ onError(error)
 )
 ```
 
-###Notes:
+### Notes:
 
 **divId** parameter is the html div where the startCapture flow will be rendered
 
@@ -141,7 +141,7 @@ the parameter videoId.
 should accept the parameter videoId.
 
 
-###Errors:
+### Errors:
 
  * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
 
@@ -150,7 +150,7 @@ should accept the parameter videoId.
 
 
 
-##renderGlasses
+## renderGlasses
 
 This API is invoked to tell the VTO component to render a canvas with fifteen frames with glasses on a user's face for a given video and UPC.
 
@@ -173,7 +173,7 @@ showRotateBar: true | false (defaults to false)
 )
 ```
 
-###Notes:
+### Notes:
 
 **divId** html div where the renderedCapture image will be shown
 
@@ -189,7 +189,7 @@ showRotateBar: true | false (defaults to false)
  
  * **showRotateBar:**  Option to show the rotate bar on top of the rendering canvas
 
-###Errors:
+### Errors:
  * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
  * **Error: SkuNotFoundError Code: 4**, Message: This resource is not available. If an invalid UPC was passed into rendered glasses we will show error above.
  * **Error: VideoNotFoundError Code: 5**, Message: This resource is not available.
@@ -200,7 +200,7 @@ showRotateBar: true | false (defaults to false)
 
 
 
-##deleteUser
+## deleteUser
 
 This API will "hard" delete all files and database records for a VTO User.
 
@@ -212,7 +212,7 @@ onError(error)
 )
 ```
 
-Errors:
+**Errors:**
  * **Error: InvalidUserIdError Code: 2**, message: Not Found. If an invalid UserId is passed to VTO then we return Code 2.
  * **Error: UnexpectedError Code: 3**. This is for errors out of our control
 
@@ -221,7 +221,7 @@ Errors:
 --------------
 
 
-##getImage
+## getImage
 
 This API retrieves images and assets from VTO.
 
@@ -253,7 +253,7 @@ onError(error)
 **canvas**: pass in the canvas object that you would like to receive the render.
 
 
-###Errors:
+### Errors:
 
  * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
  * **Error: SkuNotFoundError Code: 4**, Message: This resource is not available. If an invalid UPC was passed into rendered glasses we will show error above.
@@ -266,7 +266,7 @@ onError(error)
 
 
 
-##isUpcSupported
+## isUpcSupported
 
 Used to determine if a given UPC is supported by VTO:
 
@@ -281,11 +281,11 @@ onError(error)
 **- isSupported** will be either true or false.
 
 
-###Errors:
+### Errors:
  * **Error: UnexpectedError Code: 3** This is for errors out of our control such as AWS is down. Errors such as VTO processing errors are handled within our VTO component.
 
 
-##VTO Mobile Analytics Config:
+## VTO Mobile Analytics Config:
 
 ```javascript
 var analyticsConfig = {
