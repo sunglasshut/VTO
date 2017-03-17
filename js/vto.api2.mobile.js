@@ -89,7 +89,7 @@
                 obj.analyticsTrack('closed vto');
             });
            
-            console.log('vtoElements()');
+           // console.log('vtoElements()');
         },
         analyticsTrack: function(linkName) {
             var obj = this
@@ -116,7 +116,7 @@
                 'cntry': utag_data.country || ""
             };
             _trackAnalytics(track);
-            console.log('track: sgh: vto: '+user+': '+linkName);
+           // console.log('track: sgh: vto: '+user+': '+linkName);
         },
         vtoClose: function() {
             
@@ -133,7 +133,7 @@
             $('body').removeClass('fullscreen-open')
             $('html').css('top','');
             
-            console.log('onCloseVto');
+           // console.log('onCloseVto');
         },
         closeVTOModelWindow: function () {
             var obj = this
@@ -144,7 +144,7 @@
                 $(this).addClass('vto-hide')
                 obj.vtoClose()
             });
-            console.log("closeVTOModelWindow")
+            //console.log("closeVTOModelWindow")
         },
         genericErrorHandler:  function(error) {
             var obj = this
@@ -320,8 +320,8 @@
                     obj.analyticsTrack('vto pdp:' )
                     videoRetake = false;
                     noVTOModel = false;
-                console.log('cookie: '+cookie) 
-               console.log('render-success')
+               // console.log('cookie: '+cookie) 
+               //console.log('render-success')
             }
             
             var analyticsConfig = {
@@ -439,7 +439,7 @@
             }
 
             function renderGlassesFlow(upc) {
-                console.log('renderedGlasses" '+renderedGlasses+ " upc: "+upc+" currentVideoId: "+currentVideoId)
+                //console.log('renderedGlasses" '+renderedGlasses+ " upc: "+upc+" currentVideoId: "+currentVideoId)
                 if (renderedGlasses !== upc && currentVideoId || videoRetake === true ) {
                           
                     $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(100).animate({
@@ -457,7 +457,7 @@
                         renderedGlasses = upc;
                         videoRetake = false; 
                     })
-                    console.log('renderGlassesFlow')
+                   // console.log('renderGlassesFlow')
                 }else{
                     $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(100).animate({
                         right: "0",
@@ -471,7 +471,7 @@
             }
 
             function generateOptions() {
-                console.log('generateOptions');
+                //console.log('generateOptions');
             }
 
             function createCookie(videoId) {
@@ -490,16 +490,16 @@
                                   {showRotateBar: true}
                                   );
                 })
-                console.log('createCookie')
+                //console.log('createCookie')
             }
 
             function onPrivacyPolicy() {
-                console.log('onPrivacyPolicy')
+               // console.log('onPrivacyPolicy')
             }
 
             function startCaptureFlow() {
                // $(vtoRoot).hide();
-                console.log("glassesUpc:"+glassesUpc+" vtoRoot: "+vtoRoot+" currentUserId: "+currentUserId)
+                //console.log("glassesUpc:"+glassesUpc+" vtoRoot: "+vtoRoot+" currentUserId: "+currentUserId)
                 $(".vto-try-them-on").hide();
                 
                 VtoApp.startCapture(
@@ -521,11 +521,11 @@
                 $(vtoRoot).removeClass('vto-hide').show();
                 $('#sgh-vto-overlay_video').show();
                 $('#sgh-vto-overlay_container').hide();
-                console.log('startCaptureFlow1');
+                //console.log('startCaptureFlow1');
             }
 
             function loadVtoApp(data) {
-                console.log('loadVtoApp '+currentUserId);
+                //console.log('loadVtoApp '+currentUserId);
                 var $overlayOpen = $('a.sgh-vto-overlay-open')
                 VtoApp.init(
                     currentUserId,
@@ -587,12 +587,12 @@
             loadVtoApp(data)
   
         	
-           console.log('vtoApplication');
+          // console.log('vtoApplication');
         },
         vtoAPI: function() {
             var obj = this
             var isSupported
-            var url = 'https://s3.amazonaws.com/vto-react-integration/vto-mobile-application.js'
+            var url = 'https://d1phjbsp802ne8.cloudfront.net/vto-mobile-application.js?v=01'
             window.jQuery.ajax(url, {
                 type: 'get',
                 dataType: 'script',
@@ -600,7 +600,7 @@
                 async: true,
                 crossDomain: true,
                 success: function(data) {
-                    console.log('UPC: '+obj.settings.glassesUpc)
+                    //console.log('UPC: '+obj.settings.glassesUpc)
                     function onSupportedUPC(isSupported) {
                         if ($.cookie('vtoId')){
                             var vtoCookie = JSON.parse($.cookie('vtoId'))
@@ -618,7 +618,7 @@
                         }else{
                              obj.analyticsTrack('not supported upc:')
                         }
-                       // console.log('onSupportedUPC:'+isSupported)
+                       console.log('onSupportedUPC:'+isSupported)
                     }
                     VtoApp.isUpcSupported(
                         obj.settings.glassesUpc,
@@ -626,7 +626,7 @@
                         obj.genericErrorHandler
                     )
                    
-                    console.log('LOADED' );
+                    //console.log('LOADED' );
                 },
                 complete: function(){
                     $('.ajax-loader-wrap, #ajax-container').show();
@@ -635,7 +635,7 @@
                   console.log( "error");
                 }
             })
-             console.log( "vtoAPI 2.0");
+             //console.log( "vtoAPI 2.0");
         },
         init: function() {
             return this.vtoAPI(), this;
