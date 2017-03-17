@@ -46,8 +46,10 @@ html.vto-bg-no-scroll {
 }
 
 #sgh_vto_overlay .info-container p span,
-#sgh_vto_overlay .info-container p {
-  font-size:  13px !important;
+#sgh_vto_overlay .info-container p.style,
+#sgh_vto_overlay .info-container p.swatch,
+#sgh_vto_overlay .info-container p.fit {
+  font-size:  13px;
   color: #111;
 }
 
@@ -351,6 +353,9 @@ html.vto-bg-no-scroll {
 	border-width: 2px;
 }
 
+.vto-application .canvas-container .rotate-bar .rotate-text {
+	text-transform: uppercase;
+}
 
 #sgh_vto_overlay .vto-application {
 	font-family: "brandon_regular",Helvetica,Arial,sans-serif !important;
