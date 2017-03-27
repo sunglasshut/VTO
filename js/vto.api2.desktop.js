@@ -7,86 +7,95 @@
         currentVideo: "",
         currentUserId: "",
         noVTOModel: true,
-        glassesUpc: $('#upc').text()
+        glassesUpc: $('.product-upc').find('.upc').text()
     };
     var i = {
         settings: e,
         vtoElements: function() {
             var obj = this;
-            $('<a class="button black sgh-vto-overlay-open vto-hide" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 15 19"><defs><path id="a" d="M1.1 9.1c0-.1 0-.1 0 0 .4.8.7 1.7.9 1.9V9.8h.4v.1l.2.8c.1.3.2.6.4.8.2.2.6.3.9.3h1.3c.2 0 .5-.1.7-.2.3-.1.5-.3.6-.6.1-.1.1-.3.1-.4.1-.4.2-.7.2-.9h1c0 .2.1.5.2.9 0 .1.1.3.1.4.1.3.3.5.6.6.2.1.5.2.7.2h1.3c.3 0 .6-.1.9-.3.2-.2.4-.5.5-.7l.2-.8v-.1h.3l.1.8c.3-.5.5-1.1.7-1.7.1 0 .1.1.2.1.3.1.4.3.4.5v.2c0 .6-.1 1.1-.4 1.6-.1.2-.2.4-.4.6-.1.1-.2.2-.4.3l-.2.1-.1.2c-.3 1.4-.9 2.6-1.9 3.7-.9.9-2 1.4-3.3 1.4s-2.3-.4-3.2-1.3c-.9-1.1-1.6-2.3-1.9-3.7l-.1-.2-.1-.1c-.2-.1-.3-.2-.4-.3-.2-.3-.4-.7-.5-1-.1-.4-.2-.8-.2-1.2v-.2c0-.3 0-.5.2-.6zm2.7-4.2s.9-1.6 2.3-.5 3 3.1 6.4 3.1l.2 1.7h-.3s0-.5-.9-.6H8.8c-.4 0-.7.2-.8.5H6.8c-.1-.3-.4-.5-.7-.5H3.3c-.9.1-.9.6-.9.6h-.3c.1-1.8.5-4.3 1.7-4.3zM.9 12.7c.2.2.3.3.6.4.3 1.4 1 2.8 2 3.9s2.4 1.7 3.9 1.7 2.9-.6 3.9-1.7 1.7-2.4 2-3.9c.2-.1.4-.3.6-.4.3-.4.6-.8.7-1.3.2-.5.2-1 .2-1.5v-.3c0-.4-.2-.8-.4-1.1-.2-.2-.3-.3-.6-.4 0-.2.1-.4.1-.6.4-2.1-.1-5.9-4.4-7.2C7.2-.5 4.7.2 3.1 2c0 0-3 .9-2.2 6.2-.2 0-.3.1-.4.3-.3.3-.5.7-.5 1v.3c0 .7.2 1.3.4 2 .2.3.3.6.5.9z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><g clip-path="url(#b)"><defs><path id="c" d="M-126-581h375v1740h-375z"/></defs><clipPath id="d"><use xlink:href="#c" overflow="visible"/></clipPath><path clip-path="url(#d)" fill="#FFF" d="M-5-5h24.8v28.7H-5z"/></g></svg> <span></span</a>').appendTo('#update_cart_total .container')
+            $('<a class="icon pdp-vto sgh-vto-overlay-open vto-hide" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 15 19"><defs><path id="a" d="M1.1 9.1c0-.1 0-.1 0 0 .4.8.7 1.7.9 1.9V9.8h.4v.1l.2.8c.1.3.2.6.4.8.2.2.6.3.9.3h1.3c.2 0 .5-.1.7-.2.3-.1.5-.3.6-.6.1-.1.1-.3.1-.4.1-.4.2-.7.2-.9h1c0 .2.1.5.2.9 0 .1.1.3.1.4.1.3.3.5.6.6.2.1.5.2.7.2h1.3c.3 0 .6-.1.9-.3.2-.2.4-.5.5-.7l.2-.8v-.1h.3l.1.8c.3-.5.5-1.1.7-1.7.1 0 .1.1.2.1.3.1.4.3.4.5v.2c0 .6-.1 1.1-.4 1.6-.1.2-.2.4-.4.6-.1.1-.2.2-.4.3l-.2.1-.1.2c-.3 1.4-.9 2.6-1.9 3.7-.9.9-2 1.4-3.3 1.4s-2.3-.4-3.2-1.3c-.9-1.1-1.6-2.3-1.9-3.7l-.1-.2-.1-.1c-.2-.1-.3-.2-.4-.3-.2-.3-.4-.7-.5-1-.1-.4-.2-.8-.2-1.2v-.2c0-.3 0-.5.2-.6zm2.7-4.2s.9-1.6 2.3-.5 3 3.1 6.4 3.1l.2 1.7h-.3s0-.5-.9-.6H8.8c-.4 0-.7.2-.8.5H6.8c-.1-.3-.4-.5-.7-.5H3.3c-.9.1-.9.6-.9.6h-.3c.1-1.8.5-4.3 1.7-4.3zM.9 12.7c.2.2.3.3.6.4.3 1.4 1 2.8 2 3.9s2.4 1.7 3.9 1.7 2.9-.6 3.9-1.7 1.7-2.4 2-3.9c.2-.1.4-.3.6-.4.3-.4.6-.8.7-1.3.2-.5.2-1 .2-1.5v-.3c0-.4-.2-.8-.4-1.1-.2-.2-.3-.3-.6-.4 0-.2.1-.4.1-.6.4-2.1-.1-5.9-4.4-7.2C7.2-.5 4.7.2 3.1 2c0 0-3 .9-2.2 6.2-.2 0-.3.1-.4.3-.3.3-.5.7-.5 1v.3c0 .7.2 1.3.4 2 .2.3.3.6.5.9z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><g clip-path="url(#b)"><defs><path id="c" d="M-126-581h375v1740h-375z"/></defs><clipPath id="d"><use xlink:href="#c" overflow="visible"/></clipPath><path clip-path="url(#d)" d="M-5-5h24.8v28.7H-5z"/></g></svg> <span></span</a>').appendTo('#pdp-display .viewBy')
             $(
                 $('<div/>')
-                    .attr('id', 'sgh_vto_overlay')
-                    //.addClass('vto-hide')
-                   
+                    .attr('id', 'sgh-vto-overlay_model')
+                    .addClass('vto-hide')
+                    .append('<span id="user-id">c4a6953b-986c-4549-a927-a7c5d4ea1054</span>')
+                    .append('<i class="model-close sgh-vto-model-close">CLOSE <span>&#10006;</span></i>')
                     .append(
                         $('<div/>')
-                        .attr('id', 'sgh-vto-overlay_video')
-                        .append('<span id="user-id">c4a6953b-986c-4549-a927-a7c5d4ea1054</span>')
-                        .append(
+                        .attr('id', 'sgh-vto-vtomodel-container')
+                        //.addClass('vto-hide')
+                        .append('<div id="vto_modal_app_root" ></div>')
+                        .prepend(
                             $('<div/>')
-                            .attr('id', 'sgh-vto-video-container')
-                            .append('<div id="vto_app_root" class="vto-hide">vto_app_root</div></div>')
+                            .attr('id', 'sgh-vto-overlay-video-buttons')
+                            //.append('<a class="button sgh-vto-overlay-close  white button_back-arrow"><svg class="back-bar-arrow" width="8px" height="14px" viewBox="0 0 8 14" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="Ray-Ban-Mobile-VTO"><g id="6.0-Reveal---Without-Sunglasses" transform="translate(-70.000000, -553.000000)"><g id="Icons/Ray-Ban-Arrow-(Black)" transform="translate(70.000000, 553.000000)"><path d="M5.18269231,14 L-3.51718654e-13,14 L-3.51718654e-13,13.9230769 L4.71153846,7 L-3.5199621e-13,0.0769230769 L-3.51718654e-13,0 L5.18269231,0 L2.82692308,0 L2.82692308,0.0769230769 L7.53846154,7 L2.82692308,13.9230769 L2.82692308,14 L5.18269231,14 Z" id="Combined-Shape" transform="translate(3.769231, 7.000000) rotate(-180.000000) translate(-3.769231, -7.000000) "></path></g></g></g></svg> Back to Product Page</a>')
+                            .append('<a id="vto-open-edit" class="vto-hide" >Options</a> ')
                         )
+                    )
+                    .append(
+                        $('<div/>')
+                        .attr('id', 'sgh-vto-video-edit-container')
+                        .addClass('vto-hide vto-video-edit-modal-initial')
                         .append(
                             $('<div/>')
-                            .attr('id', 'sgh-vto-vtomodel-container')
-                            //.addClass('vto-hide')
-                            .append('<div id="vto_modal_app_root" ></div>')
-                            .prepend(
-                                $('<div/>')
-                                .attr('id', 'sgh-vto-overlay-video-buttons')
-                                .append('<a class="button sgh-vto-overlay-close  white button_back-arrow"><svg class="back-bar-arrow" width="8px" height="14px" viewBox="0 0 8 14" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="Ray-Ban-Mobile-VTO"><g id="6.0-Reveal---Without-Sunglasses" transform="translate(-70.000000, -553.000000)"><g id="Icons/Ray-Ban-Arrow-(Black)" transform="translate(70.000000, 553.000000)"><path d="M5.18269231,14 L-3.51718654e-13,14 L-3.51718654e-13,13.9230769 L4.71153846,7 L-3.5199621e-13,0.0769230769 L-3.51718654e-13,0 L5.18269231,0 L2.82692308,0 L2.82692308,0.0769230769 L7.53846154,7 L2.82692308,13.9230769 L2.82692308,14 L5.18269231,14 Z" id="Combined-Shape" transform="translate(3.769231, 7.000000) rotate(-180.000000) translate(-3.769231, -7.000000) "></path></g></g></g></svg> Back to Product Page</a>')
-                                .append('<a id="vto-open-edit" class="vto-hide" >Options</a> ')
-                            )
-                        )
-                        //.append('<div id="sgh-vto-video-edit" class="vto-hide sgh-vto-video-edit-modal"><i class="modal-close vto-delete-cancel">&#10006;</i><p>Are you sure you want to delete your virtual model</p> <a class="vto-start-button outlineButton" >RETAKE MY VIDEO</a><a class="vto-delete-button outlineButton">REMOVE MY VIRTUAL MODEL</a></div> ')
-                        .append(
-                            $('<div/>')
-                            .attr('id', 'sgh-vto-video-edit-container')
-                            .addClass('vto-hide vto-video-edit-modal-initial')
+                            .attr('id', 'sgh-vto-video-edit')
+                            .addClass('sgh-vto-video-edit-modal')
+                            .append('<i class="modal-close vto-option-cancel">&#10006;</i>')
                             .append(
                                 $('<div/>')
-                                .attr('id', 'sgh-vto-video-edit')
-                                .addClass('sgh-vto-video-edit-modal')
-                                .append('<i class="modal-close vto-option-cancel">&#10006;</i>')
-                                .append(
-                                    $('<div/>')
-                                    .addClass('vto-edit-page vto-edit-initial')
-                                    .append('<p>VIRTUAL MODEL OPTIONS</p>')
-                                    .append('<a class="vto-retake-button outlineButton" >RETAKE MY VIDEO</a>')
-                                    .append('<a class="vto-delete-button outlineButton">REMOVE MY VIRTUAL MODEL</a>')
-                                )
-                                .append(
-                                    $('<div/>')
-                                    .addClass('vto-edit-page vto-edit-retake')
-                                    .append('<p>RETAKING YOUR VIDEO WILL REMOVE YOUR CURRENT ONE </p>')
-                                    .append('<a class="vto-retake-cancel button black" >CANCEL</a>')
-                                    .append('<a class="vto-retake-confirm outlineButton">RETAKE</a>')
-                                )
-                                .append(
-                                    $('<div/>')
-                                    .addClass('vto-edit-page vto-edit-delete')
-                                    .append('<p>ARE YOU SURE YOU WANT TO REMOVE YOUR VIRTUAL MODEL? </p>')
-                                    .append('<a class="vto-delete-cancel button black" >CANCEL</a>')
-                                    .append('<a class="vto-delete-confirm outlineButton">REMOVE</a>')
-                                )
+                                .addClass('vto-edit-page vto-edit-initial')
+                                .append('<p>VIRTUAL MODEL OPTIONS</p>')
+                                .append('<a class="vto-retake-button outlineButton" >RETAKE MY VIDEO</a>')
+                                .append('<a class="vto-delete-button outlineButton">REMOVE MY VIRTUAL MODEL</a>')
                             )
-                            .append('<div class="sgh-vto-video-edit-background vto-option-cancel"></div>')
+                            .append(
+                                $('<div/>')
+                                .addClass('vto-edit-page vto-edit-retake')
+                                .append('<p>RETAKING YOUR VIDEO WILL REMOVE YOUR CURRENT ONE </p>')
+                                .append('<a class="vto-retake-cancel button black" >CANCEL</a>')
+                                .append('<a class="vto-retake-confirm outlineButton">RETAKE</a>')
+                            )
+                            .append(
+                                $('<div/>')
+                                .addClass('vto-edit-page vto-edit-delete')
+                                .append('<p>ARE YOU SURE YOU WANT TO REMOVE YOUR VIRTUAL MODEL? </p>')
+                                .append('<a class="vto-delete-cancel button black" >CANCEL</a>')
+                                .append('<a class="vto-delete-confirm outlineButton">REMOVE</a>')
+                            )
                         )
-                        //.append('<div id="sgh-vto-video-delete" class="vto-hide sgh-vto-video-edit-modal"><i class="modal-close vto-delete-cancel">&#10006;</i><p>Are you sure you want to delete your virtual model</p> <a class="vto-delete-cancel button black ">KEEP MY VIRTUAL MODEL</a> <a class="vto-delete-confirm outlineButton">REMOVE MY VIRTUAL MODEL</a></div>')
-                        .append('<div class="vto-hide" id="render-success"><span id="video-id">video-id</span> <span id="render-success-time">&quot;video-id</span> <span id="render-success-time"><!--render--></span> <span id="video-id">video-id</span></div>')
+                        .append('<div class="sgh-vto-video-edit-background vto-option-cancel"></div>')
                     )
-                    /*.append(
-                         $('<div/>')
-                            .attr('id', 'sgh-vto-overlay_container')
-                            .append('<a class="button black vto-start-button" id="vto_start_button">VTO GET STARTED</a>')
-                    )*/
-                ).appendTo('#pageContainer')
+                    .append('<div class="vto-hide" id="render-success"><span id="video-id">video-id</span> <span id="render-success-time">&quot;video-id</span> <span id="render-success-time"><!--render--></span> <span id="video-id">video-id</span></div>')
+
+                ).appendTo('#pdp-display >#product')
+
+                $(
+                    $('<div/>')
+                        .attr('id', 'sgh_vto_overlay')
+                        .addClass('vto-hide')
+                        .append(
+                            $('<div/>')
+                            .attr('id', 'sgh-vto-overlay_video')
+                            .append('<span id="user-id">c4a6953b-986c-4549-a927-a7c5d4ea1054</span>')
+                            .append('<i class="modal-close sgh-vto-overlay-close">&#10006; Close</i>')
+                            .append('<h3 class="vto-create-header">CREATE YOUR VIRTUAL MODEL</h3>')
+                            .append(
+                                $('<div/>')
+                                .attr('id', 'sgh-vto-video-container')
+                                .append('<div id="vto_app_root" class="vto-hide">vto_app_root</div></div>')
+                            )
+                        )
+                        .append('<div class="vto-overlay-background"></div>')
+                ).appendTo('#pdp')
 
             $('.sgh-vto-overlay-close').on( "click", function() {
-                obj.closeVTOModelWindow()
+                obj.vtoClose()
                 obj.analyticsTrack('closed vto');
+            });
+
+            $('.sgh-vto-model-close').on( "click", function() {
+                obj.closeVTOModelWindow()
+                obj.analyticsTrack('closed vto model');
             });
            
            // console.log('vtoElements()');
@@ -116,35 +125,18 @@
                 'cntry': utag_data.country || ""
             };
             _trackAnalytics(track);
-           console.log('track: sgh: vto: '+user+': '+linkName);
+            console.log('track: sgh: vto: '+user+': '+linkName);
         },
         vtoClose: function() {
-            
-            $('#pageContainer').removeClass('vto-disable-scrolling').bind("touchmove")
+            $('#page-wrapper').removeClass('vto-disable-scrolling').bind("touchmove")
             $( "#sgh_vto_overlay" ).removeClass('active').hide()
-            if(  $('#sgh-vto-video-edit-container').is(":visible") == true ){ 
-                $('#sgh-vto-video-edit-container')
-                    .hide()
-                    .addClass('vto-video-edit-modal-initial')
-                    .removeClass('vto-video-edit-modal-delete')
-                    .removeClass('vto-video-edit-modal-retake');
-            }
-            $('html').removeClass('hide-body')
-            $('body').removeClass('fullscreen-open')
-            $('html').css('top','');
-            
+            $('body').removeClass('vto-disable-scrolling')            
            // console.log('onCloseVto');
         },
         closeVTOModelWindow: function () {
-            var obj = this
-            $( "#sgh-vto-vtomodel-container" ).delay(100).animate({
-                 right: "-100%",
-            }, 300 , function() {
-                $( '#sgh_vto_overlay .info-container' ).hide( );
-                $(this).addClass('vto-hide')
-                obj.vtoClose()
-            });
-            //console.log("closeVTOModelWindow")
+            $('#pdp-container').removeClass('show-vto');
+            $( '#sgh-vto-overlay_model' ).addClass('vto-hide').removeClass('active').hide( );
+            console.log("closeVTOModelWindow")
         },
         genericErrorHandler:  function(error) {
             var obj = this
@@ -152,6 +144,18 @@
             $('#sgh-vto-overlay_video').hide();
             $("#vto_start_button").addClass('hide')
             obj.analyticsTrack('error: generic: '+error)
+        },
+        getVtoSize: function(divide) {
+            var size = $(window).width() / divide, // size is the window width by default
+                height = $(window).height() / divide;
+            // landscape
+            if (size > height) {
+                size = height;
+            }
+            return {
+                width: size,
+                height: size
+            };
         },
         vtoApplication: function(data) {
             var obj = this
@@ -202,7 +206,7 @@
                 obj.closeVTOModelWindow();
                 $('#sgh-vto-video-container').addClass('active')             
                 $( "#sgh-vto-vtomodel-container" ).removeClass('active')
-                $('a.sgh-vto-overlay-open').find('span').text('TRY THEM ON')
+                $('a.sgh-vto-overlay-open').find('span').text('TRY ON')
                 $( '#sgh-vto-overlay_video' ).hide( );
                 $( '#sgh_vto_overlay .info-container' ).hide( );
                 $('#sgh-vto-overlay_container').show();
@@ -311,137 +315,86 @@
                            // console.log('CLick Delete'+videoId)
                         });
                         
-                        $('a.sgh-vto-overlay-open').find('span').text('VIEW YOUR VIRTUAL MODEL')
+                        $('a.sgh-vto-overlay-open').find('span').text('VIRTUAL MODEL')
                         rendererSuccess = true
                        // console.log('analyticsTrack - vto pdp '+rendererSuccess)
                     }
                     $('#sgh_vto_overlay .info-container').delay( 200 ).fadeIn( 300 );
-                    $('sgh-vto-overlay_container').hide();
+                    $('#sgh-vto-overlay_container').hide();
                     obj.analyticsTrack('vto pdp:' )
                     videoRetake = false;
                     noVTOModel = false;
-               // console.log('cookie: '+cookie) 
-               //console.log('render-success')
+               //console.log('cookie: '+cookie) 
+               console.log('render-success')
             }
-            
-            var analyticsConfig = {
-                instructions: {
-                    onPageLoad: function () {
-                       obj.analyticsTrack('step 1: instructions')
-                       //console.log('analyticsConfig - instructions')
-                        //showAnalyticsAlert('instructions', 'onPageLoad');
-                    },
-                    //takeVideoElementClass: 'vto-take-video'
-                },
-                uploadingVideo: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('step 2: uploaded video')
-                        //console.log('analyticsConfig - uploadingVideo')
-                       // showAnalyticsAlert('uploadingVideo', 'onPageLoad');
-                    }
-                },
-                genderSelect: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('step 3: select gender')
-                        //console.log('analyticsConfig - genderSelect')
-                       // showAnalyticsAlert('genderSelect', 'onPageLoad');
-                    },
-                    //genderMensElementClass: 'vto-mens',
-                    //genderWomensElementClass: 'vto-womens',
-                   // genderNextElementContentBox: 'vto-gender-next'
-                },
-                sizeSelect: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('step 3: select size')
-                        //console.log('analyticsConfig - sizeSelect')
-                       // showAnalyticsAlert('sizeSelect', 'onPageLoad');
-                    },
-                   // sizeSmallElementClass: 'vto-small',
-                   // sizeAverageElementClass: 'vto-average',
-                   // sizeLargeElementClass: 'vto-large',
-                   // sizeNextElementContentBox: 'vto-size-next'
-                },
-                analyzingVideo: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('step 3: analyzing video')
-                       // console.log('analyticsConfig - analyzingVideo')
-                       // showAnalyticsAlert('analyzingVideo', 'onPageLoad');
-                    }
-                },
-                reviewWithoutGlasses: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('step 4: review without glasses')
-                        //console.log('analyticsConfig - reviewWithoutGlasses')
-                       // showAnalyticsAlert('reviewWithoutGlasses', 'onPageLoad');
-                    },
-                   // retakeElementClass: 'without-glasses-retake',
-                   // continueElementClass: 'without-glasses-continue',
-                    onFaceSwipe: function () {
-                       // showAnalyticsAlert('reviewWithoutGlasses', 'onFaceSwipe');
-                    }
-                },
-                mappingGlasses: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('step 4: mapping glasses')
-                        //console.log('analyticsConfig - mappingGlasses')
-                      //  showAnalyticsAlert('mappingGlasses', 'onPageLoad');
-                    }
-                },
-                reviewWithGlasses: {
-                    onPageLoad: function () {
-                        
-                        obj.analyticsTrack('step 5: review with glasses')
-                       // console.log('analyticsConfig - reviewWithGlasses - reviewTakeToModel()')
-                       
-                        //showAnalyticsAlert('reviewWithGlasses', 'onPageLoad');
-                    },
-                    onContinueNoSave: function() {
-                        obj.analyticsTrack('step 6: onContinueNoSave')
-                    },
-                    onFaceSwipe: function () {
-                        obj.analyticsTrack('step 5: review with glasses : swipe face')
-                    }
-                },
-                saveToAccount: {
-                    onPageLoad: function() {
-                        obj.analyticsTrack('step 6: save to account')
-                       // console.log('step 6: save to account')
-                        //takeToModel()
-                    },
-                    onSave: function() {console.log('step 6: save to account')},
-                    onContinueNoSave: function() {console.log('step 6: save to account')},
-                },
-                uploadFailed: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('error: uploading failed')
-                        //console.log('analyticsConfig - uploadFailed')
-                        //showAnalyticsAlert('uploadFailed', 'onPageLoad');
-                    },
-                   // uploadRetryClass: 'upload-failed-retry'
-                },
-                videoTooLong: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('error: video too long')
-                       // console.log('analyticsConfig - videoTooLong')
-                        //showAnalyticsAlert('videoTooLong', 'onPageLoad');
-                    },
-                    //uploadRetryClass: 'video-too-long-retry'
-                },
-                processingError: {
-                    onPageLoad: function () {
-                        obj.analyticsTrack('error: video processing')
-                       // console.log('analyticsConfig - processingError')
-                       // showAnalyticsAlert('processingError', 'onPageLoad');
-                    },
-                   // uploadRetryClass: 'processing-error-retry'
-                }
 
+            var analyticsConfig = {
+                demo: {
+                    onPageLoad: function() {obj.analyticsTrack('step 1: instructions')},
+                    onFaceSwipe: function() {},
+                    onCreateModel: function() {},
+                    //createModelClass: ''
+                },
+                capture: {
+                    onPageLoad: function() {obj.analyticsTrack('step 2: capture')},
+                    onValidHeadtrack: function() {obj.analyticsTrack('step 2: capture: valid head track')},
+                    onWebcamAllowed: function() {}
+                },
+                browsererror: {
+                    onPageLoad: function() {obj.analyticsTrack('error: browser ')}
+                },
+                deviceerror: {
+                    onPageLoad: function() {obj.analyticsTrack('error: device')}
+                },
+                permissionerror: {
+                    onPageLoad: function() {obj.analyticsTrack('error: permission')}
+                },
+                processingerror: {
+                    onPageLoad: function() {obj.analyticsTrack('error: processing')},
+                    onRetry: function() {},
+                    //processingErrorRetryClass: ''
+                },
+                uploaderror: {
+                    onPageLoad: function() {obj.analyticsTrack('error: upload')},
+                    onRetry: function() {},
+                    //uploadErrorRetryClass: ''
+                },
+                upload: {
+                    onPageLoad: function() {obj.analyticsTrack('step 3: uploaded video')}
+                },
+                processing: {
+                    onPageLoad: function() {obj.analyticsTrack('step 3: uploaded video: processing')}
+                },
+                preview: {
+                    onPageLoad: function() {obj.analyticsTrack('step 4: preview')},
+                    onFaceSwipe: function() {obj.analyticsTrack('step 4: preview: face swipe')},
+                    //previewRetakeClass: '',
+                    onRetake: function() {obj.analyticsTrack('step 4: preview: retake')},
+                   // previewSaveClass: '',
+                    onSave: function() {obj.analyticsTrack('step 4: preview: save')},
+                   // previewContinueClass: '',
+                    onContinue: function() {obj.analyticsTrack('step 4: preview: on continue')}
+                },
+                render: {
+                    onPageLoad: function() {obj.analyticsTrack('step 5: render')},
+                    onFaceSwipe: function() {obj.analyticsTrack('step 5: render: face swipe')},
+                    onRenderGlasses: function() {obj.analyticsTrack('step 5: render: render glasses')}
+                },
+                comingsoon: {
+                    onPageLoad: function() {obj.analyticsTrack('coming soon')}
+                },
+                rendererror: {
+                    onPageLoad: function() {obj.analyticsTrack('error: render')}
+                }
             }
+
+            
+            
 
             function renderGlassesFlow(upc) {
                 //console.log('renderedGlasses" '+renderedGlasses+ " upc: "+upc+" currentVideoId: "+currentVideoId)
                 if (renderedGlasses !== upc && currentVideoId || videoRetake === true ) {
-                          
+                    $('#pdp-container').addClass('show-vto')     
                     $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(100).animate({
                         right: "0",
                     }, 300, function() {
@@ -449,7 +402,7 @@
                         VtoApp.renderGlasses('vto_modal_app_root',
                               currentVideoId,
                               glassesUpc,
-                              {width:$(window).width(), height:$(window).width()},
+                              {width: 480, height: 480},
                               renderSucceeded,
                               obj.genericErrorHandler,
                               {showRotateBar: true}
@@ -476,21 +429,19 @@
 
             function createCookie(videoId) {
                 currentVideoId = videoId;
-                //$("#vto_toggle_button").show();
-                //$("#mainImageContainer").hide();
-                 $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(50).animate({
-                    right: "0",
-                }, 300, function() {
+                 console.log('createCookie: '+currentVideoId)
+                $('#pdp-container').addClass('show-vto')  
+                $('#sgh_vto_overlay').removeClass('active').addClass('vto-hide').hide();
+                $( "#sgh-vto-overlay_model" ).addClass('active').removeClass('vto-hide')
                 VtoApp.renderGlasses('vto_modal_app_root',
-                                  currentVideoId,
-                                  glassesUpc,
-                                  {width:$(window).width(), height:$(window).width()},
-                                  renderSucceeded,
-                                  obj.genericErrorHandler,
-                                  {showRotateBar: true}
-                                  );
-                })
-                //console.log('createCookie')
+                      currentVideoId,
+                      glassesUpc,
+                      {width: 480, height: 480},
+                      renderSucceeded,
+                      obj.genericErrorHandler,
+                      {showRotateBar: true}
+                    );
+                console.log('createCookie')
             }
 
             function onPrivacyPolicy() {
@@ -498,15 +449,15 @@
             }
 
             function startCaptureFlow() {
-               // $(vtoRoot).hide();
-                //console.log("glassesUpc:"+glassesUpc+" vtoRoot: "+vtoRoot+" currentUserId: "+currentUserId)
+                $('#sgh_vto_overlay').addClass('active').removeClass('vto-hide').show();
+                console.log("glassesUpc:"+glassesUpc+" vtoRoot: "+vtoRoot+" currentUserId: "+currentUserId)
                 $(".vto-try-them-on").hide();
                 
                 VtoApp.startCapture(
                     'vto_app_root',
                     currentUserId,
                     glassesUpc,
-                    {width:$(window).width(), height:$(window).width()},
+                    {width: 480, height: 480},
                     {
                         onCloseVto: obj.vtoClose,
                         showWelcomePage: false,
@@ -521,8 +472,25 @@
                 $(vtoRoot).removeClass('vto-hide').show();
                 $('#sgh-vto-overlay_video').show();
                 $('#sgh-vto-overlay_container').hide();
-                //console.log('startCaptureFlow1');
+                console.log('startCaptureFlow1');
             }
+
+            function getUrlParameter(sParam) {
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                }
+
+                return undefined;
+            };
 
             function loadVtoApp(data) {
                 //console.log('loadVtoApp '+currentUserId);
@@ -534,40 +502,60 @@
                     'en-US', 
                     'master',
                      analyticsConfig,
-                    function (userId) {
+                    function (userId, supportedFeatures) {
                     
                         $("#user-id").text("#user-id "+userId);
                         currentUserId = userId;
                         
                         if (currentVideoId) {
-                            $overlayOpen.find('span').text('VIEW YOUR VIRTUAL MODEL')
+                            $overlayOpen.find('span').text('VIRTUAL MODEL')
                             $overlayOpen.removeClass('vto-hide').addClass('vto-show')
                         }else{
-                            $overlayOpen.find('span').text('TRY THEM ON')
+                            $overlayOpen.find('span').text('TRY ON')
                             $overlayOpen.removeClass('vto-hide').addClass('vto-show')
                         }
+                        // Chech to see if URL has a vtoID & doesn't have video ID
+                        if (getUrlParameter('vtoId') && !currentVideoId) {
+                            startCaptureFlow(getUrlParameter('vtoId'));
+                            $overlayOpen.on( "click", function() {
+                                //If no video id open onboarding overlay
+                                if (!currentVideoId) {
+                                    $('#sgh_vto_overlay').addClass('active').removeClass('vto-hide').show();
+                                    console.log('No Video - Open Overlay')
+                                }
+                            })
+                            console.log("vtoId: "+ getUrlParameter('vtoId'))
+                        } else {
+                            $overlayOpen.on( "click", function() {
+                                var vtoUrl
+                                if (!currentVideoId) {
+                                    // Check to protocal doesn't equal HTTPs already
+                                    if(location.protocol !== 'https:'){
+                                        vtoUrl = 'https://' + window.location.host + window.location.pathname
+                                        if (getUrlParameter('locale')) {
+                                            vtoUrl += '&locale=' + getUrlParameter('locale');
+                                        }
 
-                        $overlayOpen.on( "click", function() {
-                            $('#pageContainer').addClass('vto-disable-scrolling').unbind("touchmove")
-                            if (currentVideoId) {
-                                $(".vto-try-them-on").hide();
-                                $("#vto_toggle_button").show();
-                                $('#my_vto_div').show();
-                                $('#sgh-vto-overlay_video').show();
-                                $('#sgh-vto-overlay_container').hide();
-                                obj.settings.currentVideo = currentVideoId
-                                $( "#sgh_vto_overlay" ).addClass('active').show();
-                                renderGlassesFlow(glassesUpc);
-                                noVTOModel = true;
-                                //console.log('Open OverLay - Current ID: '+currentVideoId)
-                            }else{
-                                $( "#sgh_vto_overlay" ).addClass('active').show()
-                                startCaptureFlow();
-                                 //console.log('Open OverLay - New ID: '+currentVideoId)
-                            }
-                           // $('html').css('top',$(window).scrollTop() * -1);
-                            $("html").addClass("hide-body")
-                        });
+                                        if (currentUserId) {
+                                            vtoUrl += '?vtoId=' + currentUserId;
+                                        }
+                                         location.href = vtoUrl;
+                                    }else{
+                                        startCaptureFlow(currentUserId);
+                                        console.log("URLS: "+currentUserId)     
+                                    }
+                                }else{
+                                    $( "#sgh-vto-overlay_model" ).addClass('active').removeClass('vto-hide')
+                                    renderGlassesFlow(glassesUpc);
+                                    obj.settings.currentVideo = currentVideoId
+                                    noVTOModel = true;
+                                    console.log("currentVideo: "+currentVideoId) 
+                                }
+                                console.log("URL: "+vtoUrl)                            
+                            });
+                        }
+
+                        
                     }, 
                     obj.genericErrorHandler
                 );
@@ -592,7 +580,8 @@
         vtoAPI: function() {
             var obj = this
             var isSupported
-            var url = 'https://d1phjbsp802ne8.cloudfront.net/vto-mobile-application.js?v=01'
+            var url = 'https://s3.amazonaws.com/vto-react-integration/vto-desktop-application.js?v=01'
+            $('.ajax-loader-wrap, #ajax-container').hide();
             window.jQuery.ajax(url, {
                 type: 'get',
                 dataType: 'script',
