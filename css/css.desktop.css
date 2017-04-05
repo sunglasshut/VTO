@@ -1,10 +1,40 @@
 .vto-hide {display:none;}
+.sgh-vto-overlay-open.icon.vto-hide {display:none !important;}
 
 .sgh.new-header #pdp #pdp-container #pdp-display #logo-container {
     position: absolute;
-    width: 100%;
+    width: inherit !important;
+    left: 50%;
     z-index: 2;
+    -webkit-transform: translateX(-50%); 
+	-moz-transform: translateX(-50%); 
+	-ms-transform: translateX(-50%);  
+	transform: translateX(-50%);  
+	-webkit-transform-style: preserve-3d; 
+	-moz-transform-style: preserve-3d; 
+	transform-style: preserve-3d;
+
 }
+
+#pdp #pdp-container #zoomViewer {
+	height:  inherit !important;
+	margin: 0px !important;
+	min-height: 500px;
+}
+
+.sgh.new-header #pdp .showingRotator .instructions{
+	top: inherit !important;
+    bottom: 100px !important;
+}
+
+#pdp-display #fit-overlay .instructions {
+	bottom: 100px !important;
+}
+
+.vto-application .vto-mobile h1, .vto-application .vto-desktop h4, .vto-application .vto-desktop h1, .vto-application .vto-desktop h2, .vto-application .button, .vto-application .canvas-container .rotate-bar .rotate-text,  .vto-application .vto-desktop h3, .vto-application .demo-page-right .next-button, .vto-application .vto-desktop p, #sgh-vto-overlay-video-buttons a, #sgh_vto_overlay .info-container p, #sgh_vto_overlay .info-container p span, .vto-application .vto-mobile h2, .vto-application .vto-mobile h3, .vto-application .vto-mobile h4, .vto-application .vto-mobile h5, .vto-application .vto-mobile h6 {
+	font-family: 'brandon_regular', Helvetica, Arial, sans-serif !important;
+}
+
 
 /* 	---------------
 	PDP VTO Button
@@ -42,6 +72,7 @@
 
 #pdp-display .sgh-vto-overlay-open.vto-show span {
 	display: block !important;
+	bottom:  -25px !important;
 }
 
 .show-vto .viewBy .icon.pdp-vto,
@@ -49,9 +80,6 @@
 	background-color: #333 !important;
 }
 
-.show-vto .viewBy .icon.pdp-vto {
-	pointer-events: none;
-}
 
 .show-vto .viewBy .icon.pdp-vto svg,
 #pdp-display .viewBy .icon.pdp-vto:hover svg {
@@ -59,9 +87,6 @@
     stroke: #fff !important;
 }
 
-.vto-application .vto-mobile h1, .vto-application .vto-desktop h4, .vto-application .vto-desktop h2, .vto-application .button, .vto-application .canvas-container .rotate-bar .rotate-text,  .vto-application .vto-desktop h3, .vto-application .demo-page-right .next-button, .vto-application .vto-desktop p, #sgh-vto-overlay-video-buttons a, #sgh_vto_overlay .info-container p, #sgh_vto_overlay .info-container p span, .vto-application .vto-mobile h2, .vto-application .vto-mobile h3, .vto-application .vto-mobile h4, .vto-application .vto-mobile h5, .vto-application .vto-mobile h6 {
-	font-family: 'brandon_regular', Helvetica, Arial, sans-serif !important;
-}
 
 html.vto-bg-no-scroll {
 	position: fixed;
@@ -75,46 +100,6 @@ html.vto-bg-no-scroll {
 	overflow: hidden;
 	width: 100%;
 	position: fixed !important;
-}
-
-#sgh_vto_overlay .info-container {
-    padding: 20px 20px 0px;
-    text-align: left;
-}
-
-#sgh_vto_overlay .info-container p span,
-#sgh_vto_overlay .info-container p.style,
-#sgh_vto_overlay .info-container p.swatch,
-#sgh_vto_overlay .info-container p.fit {
-  font-size:  13px;
-  color: #111;
-}
-
-#sgh_vto_overlay .info-container p.swatch,
-#sgh_vto_overlay .info-container p.fit {
-	color: #666666;
-}
-
-#sgh_vto_overlay .info-container p span {
-	color: #111;
-}
-
-#sgh_vto_overlay .brand {
-	font-size:  18px;
-	font-family: 'brandon_bold', Helvetica, Arial, sans-serif !important;
-	display:  inline-block;
-}
-#sgh_vto_overlay .price {
-	font-size:  15px;
-	display:  block;
-}
-#sgh_vto_overlay .info-container span.price,
-#sgh_vto_overlay .info-container .catalog-polarized {
-	font-weight: normal;
-}
-
-#sgh_vto_overlay .info-container .catalog-polarized {
-	float: right;
 }
 
 .vto-application {
@@ -187,7 +172,7 @@ html.vto-bg-no-scroll {
 }
 
 .vto-create-header {
-	font-size:  26px;
+	font-size:  26px !important;
 	font-family: 'brandon_medium', Helvetica, Arial, sans-serif !important;
 	color:  #333;
 	padding-bottom:  10px;
@@ -195,7 +180,7 @@ html.vto-bg-no-scroll {
 	margin-bottom: 30px;
 }
 .vto-overlay-background {
-    background-color: rgba(235,235,235,0.97);
+    background-color: rgba(137, 137, 137, 0.85);
     position: absolute;
     top: 0px;
     left: 0px;
@@ -212,20 +197,25 @@ html.vto-bg-no-scroll {
     padding-top: 50px;
 }
 
+.vto-application .demo-page-right {
+	z-index: 2;
+}
 .vto-application .demo-page-right .next-button{
 	padding:  0px !important;
 	width: 100% !important;
 }
 
 
-.vto-application .demo-page-left {
-	width: inherit !important;
+.vto-application .demo-page-right h3,
+.vto-application .vto-desktop h3.scaling-questions-page-description {
+	font-size: 20px !important;
+	font-family: brandon_bold, Helvetica,Arial, sans-serif !important;
 }
+
 .vto-application .demo-page-right h3,
 .vto-application .demo-page-right p,
 .vto-application .demo-page-right .instruction-text {
 	width: 100%;
-	font-size: 20px;
 }
 
 h3.scaling-questions-page-description {
@@ -257,9 +247,10 @@ h3.scaling-questions-page-description {
 	transition: opacity .5s;
     -moz-transition: opacity .5s;
     -webkit-transition: opacity .5s;
+    font-style: normal;
     opacity: 0;
     right: 0;
-    top: 40px;
+    top: -60px;
     display: block;
     width: 100px;
     height: 50px;
@@ -275,21 +266,36 @@ h3.scaling-questions-page-description {
     display: inline-block;
     margin: 0 0 0 8px;
     position: relative;
-    top: 3px;
+    font-size: 15px;
+    top: 1px;
+}
+
+#sgh-vto-vtomodel-container .canvas-container{
+	left: 50%;
+	margin: 0px;
+    -webkit-transform: translateX(-50%); 
+	-moz-transform: translateX(-50%); 
+	-ms-transform: translateX(-50%);  
+	transform: translateX(-50%);  
+	-webkit-transform-style: preserve-3d; 
+	-moz-transform-style: preserve-3d; 
+	transform-style: preserve-3d;
+}
+
+.show-vto .model-close {
+	opacity: 1;
 }
 
 #pdp-display .viewBy {
-	position: absolute !important;
+	bottom: 40px;
+    width: 100%;
+    margin: 0 !important;
+    z-index: 2;
 }
 
 #product {
 	min-height: 435px;
 	position:  relative;
-	-webkit-transition: min-height .5s; 
-	-moz-transition: min-height .5s; 
-	-ms-transition: min-height .5s; 
-	-o-transition: min-height .5s; 
-	transition: min-height .5s;
 }
 
 .show-vto #product {
@@ -320,6 +326,7 @@ h3.scaling-questions-page-description {
 	top: 40px; 
 	width: 100%;
     height: 100%;
+    height: calc(100% - 40px);
 }
 
 #sgh-vto-overlay-video-buttons {
@@ -332,6 +339,9 @@ h3.scaling-questions-page-description {
     text-align:  left;
 }
 
+.vto-application .vto-desktop h4 {
+	font-size:  15px !important;
+}
 
 /* 	---------------
 	Back Buttons
@@ -381,10 +391,19 @@ h3.scaling-questions-page-description {
 		margin: 5px 0;
 	}
 	#sgh-vto-overlay-video-buttons a#vto-open-edit {
-		float: right;
 		padding: 10px 0px;
+		position: absolute;
 		text-decoration: underline;
 		cursor: pointer;
+		left: 50%;
+		margin-left: 270px;
+	    -webkit-transform: translateX(-50%); 
+		-moz-transform: translateX(-50%); 
+		-ms-transform: translateX(-50%);  
+		transform: translateX(-50%);  
+		-webkit-transform-style: preserve-3d; 
+		-moz-transform-style: preserve-3d; 
+		transform-style: preserve-3d;
 	}
 
 	a.button.white.button_back-arrow {
@@ -496,6 +515,10 @@ h3.scaling-questions-page-description {
 	margin-top: 60px !important;
 }
 
+/* 	---------------
+	Edit Video
+	--------------
+*/	
 
 #sgh-vto-video-edit-container {
 	position: fixed;
@@ -506,34 +529,42 @@ h3.scaling-questions-page-description {
 	z-index:  120;
 }
 .sgh-vto-video-edit-background {
-    background-color: rgba(150,150,150,0.6);
+    background-color: rgba(137, 137, 137, 0.85);
     width: 100%;
     height: 100%;
 }
 
-
 .sgh-vto-video-edit-modal{
-		 width: 85%;
-	    text-align: center;
-	    background-color: #F3F2F2;
-	    box-sizing: border-box;
-	    padding: 40px 20px 20px;
-		position: absolute;
-		z-index:  120;
-		left:  50%;
-		top: 50%; 
-		-webkit-transform: translate(-50%, -50%); 
-		-moz-transform: translate(-50%, -50%); 
-		-ms-transform: translate(-50%, -50%); 
-		transform: translate(-50%, -50%); 
-		-webkit-transform-style: preserve-3d; 
-		-moz-transform-style: preserve-3d; 
-		transform-style: preserve-3d;
-	}
+	width: 400px;
+    text-align: center;
+    background-color: #F3F2F2;
+    box-sizing: border-box;
+    padding: 40px 20px 20px;
+	position: absolute;
+	z-index:  120;
+	left:  50%;
+	top: 50%; 
+	-webkit-transform: translate(-50%, -50%); 
+	-moz-transform: translate(-50%, -50%); 
+	-ms-transform: translate(-50%, -50%); 
+	transform: translate(-50%, -50%); 
+	-webkit-transform-style: preserve-3d; 
+	-moz-transform-style: preserve-3d; 
+	transform-style: preserve-3d;
+}
 .sgh-vto-video-edit-modal .vto-edit-page {
 	opacity: 0;
 	pointer-events: none;
 	height:  0px;
+}
+
+.sgh-vto-video-edit-modal .button{
+	display: block;
+	margin-top:  10px;
+}
+
+.sgh-vto-video-edit-modal .black-button.bordered{
+	border:  solid 2px #111;
 }
 
 #sgh-vto-video-edit-container.vto-video-edit-modal-initial .vto-edit-initial,
@@ -548,9 +579,17 @@ h3.scaling-questions-page-description {
 	transition: opacity .5s;
 	opacity: 1;
 }
+.sgh-vto-video-edit-modal .modal-close {
+	top: 10x;
+}
 
 .sgh-vto-video-edit-modal p {
 	margin-bottom:  25px;
+	line-height: 20px;
+	font-size: 18px;
+}
+.sgh-vto-video-edit-modal a {
+	cursor:  pointer;
 }
 
 .sgh-vto-video-edit-modal .outlineButton {
@@ -586,6 +625,20 @@ h3.scaling-questions-page-description {
 @media screen and (min-height: 630px) { 
 	.vto-application .renderer {
 	    height: 100%;
+	}
+
+}
+
+@media screen and (max-width: 1275px) { 
+	#pdp #pdp-container #zoomViewer {
+	    z-index: 10 !important;
+	}
+	#pdp #pdp-container #zoomViewer .icon {
+		bottom: 100px;
+    	position: relative;
+	}
+	#pdp #pdp-container #pdp-display .viewBy {
+	    z-index: 11;
 	}
 
 }

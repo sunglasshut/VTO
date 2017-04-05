@@ -116,7 +116,7 @@
                 'cntry': utag_data.country || ""
             };
             _trackAnalytics(track);
-           console.log('track: sgh: vto: '+user+': '+linkName);
+           //console.log('track: sgh: vto: '+user+': '+linkName);
         },
         vtoClose: function() {
             
@@ -197,7 +197,7 @@
             function deleteSucceeded() {
                 
                 if ($.cookie('vtoId')){
-                    $.cookie("vtoId", null, {expires: 1, path: '/', domain: 'sunglasshut.com'});
+                    $.cookie("vtoId", 'deleted', {expires: 1, path: '/', domain: 'sunglasshut.com'});
                 }
                 obj.closeVTOModelWindow();
                 $('#sgh-vto-video-container').addClass('active')             
@@ -602,7 +602,7 @@
                 success: function(data) {
                     //console.log('UPC: '+obj.settings.glassesUpc)
                     function onSupportedUPC(isSupported) {
-                        if ($.cookie('vtoId')){
+                        if ($.cookie('vtoId')  && $.cookie('vtoId') !== 'deleted'){
                             var vtoCookie = JSON.parse($.cookie('vtoId'))
                             obj.settings.currentUserId = vtoCookie.userId
                             obj.settings.currentVideo = vtoCookie.videoId
@@ -618,7 +618,7 @@
                         }else{
                              obj.analyticsTrack('not supported upc:')
                         }
-                       console.log('onSupportedUPC:'+isSupported)
+                       //console.log('onSupportedUPC:'+isSupported)
                     }
                     VtoApp.isUpcSupported(
                         obj.settings.glassesUpc,
