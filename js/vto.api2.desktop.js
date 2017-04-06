@@ -139,7 +139,7 @@
                 'cntry': utag_data.country || ""
             };
             _trackAnalytics(track);
-           // console.log('track: sgh: vto: '+user+': ' + gender + fit + linkName);
+           console.log('track: sgh: vto: '+user+': ' + gender + fit + linkName);
         },
         vtoClose: function() {
             var obj = this
@@ -263,7 +263,7 @@
             function renderSucceeded() {
                // obj.settings.userGender = gender.gender;
                 //obj.settings.userSize = gender.fit;
-                var id = jQuery.parseJSON( '{ "userId": "'+currentUserId+'", "videoId": "'+currentVideoId+'", "gen": "'+ obj.settings.userGender+'", "fit": "'+obj.settings.userSize+'" }' );
+                var id = jQuery.parseJSON( '{ "userId": "'+currentUserId+'", "videoId": "'+currentVideoId+'", "cat": "'+ obj.settings.userGender+'", "style": "'+obj.settings.userSize+'" }' );
                $.cookie("vtoId", JSON.stringify(id), {expires: 300, path: '/', domain: 'sunglasshut.com'});
                 obj.settings.currentVideo = currentVideoId
                 obj.settings.currentUserId = currentUserId
@@ -643,8 +643,8 @@
                             var vtoCookie = JSON.parse($.cookie('vtoId'))
                                 obj.settings.currentUserId = vtoCookie.userId
                                 obj.settings.currentVideo = vtoCookie.videoId
-                                obj.settings.userGender = vtoCookie.gen;
-                                obj.settings.userSize = vtoCookie.fit;
+                                obj.settings.userGender = vtoCookie.cat;
+                                obj.settings.userSize = vtoCookie.style;
                                 if (obj.settings.currentVideo){
                                     obj.settings.noVTOModel = false
                                 }
