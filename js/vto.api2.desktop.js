@@ -58,14 +58,14 @@
                                 $('<div/>')
                                 .addClass('vto-edit-page vto-edit-retake')
                                 .append('<p>RETAKING YOUR VIDEO WILL REMOVE YOUR CURRENT ONE </p>')
-                                .append('<a class="vto-retake-cancel button black-button" >CANCEL</a>')
+                                .append('<a class="button black-button vto-option-cancel" >CANCEL</a>')
                                 .append('<a class="vto-retake-confirm button black-button bordered">RETAKE</a>')
                             )
                             .append(
                                 $('<div/>')
                                 .addClass('vto-edit-page vto-edit-delete')
                                 .append('<p>ARE YOU SURE YOU WANT TO REMOVE YOUR VIRTUAL MODEL? </p>')
-                                .append('<a class="vto-delete-cancel button button black-button" >CANCEL</a>')
+                                .append('<a class="vto-option-cancel button button black-button" >CANCEL</a>')
                                 .append('<a class="vto-delete-confirm button black-button bordered">REMOVE</a>')
                             )
                         )
@@ -235,7 +235,7 @@
                 currentVideoId = "";
                 obj.settings.currentVideo = ""
                 obj.analyticsTrack('option modal: delete modal: confirmed')
-                var vtoUrl = 'https://' + window.location.host + window.location.pathname
+                var vtoUrl = 'http://' + window.location.host + window.location.pathname
 
                 location.href = vtoUrl;
                 obj.closeVTOModelWindow();
@@ -292,9 +292,9 @@
                         $('.vto-option-cancel').on( "click", function() {
                             $('#sgh-vto-video-edit-container').fadeOut( 300 );
                             $('#sgh-vto-video-edit-container')
-                            .addClass('vto-video-edit-modal-initial')
-                            .removeClass('vto-video-edit-modal-delete')
-                            .removeClass('vto-video-edit-modal-retake')
+                                .addClass('vto-video-edit-modal-initial')
+                                .removeClass('vto-video-edit-modal-delete')
+                                .removeClass('vto-video-edit-modal-retake')
                             obj.analyticsTrack('option modal: cancel' )
                            // console.log('option modal: cancel')
                         });

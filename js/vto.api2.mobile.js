@@ -6,6 +6,8 @@
     	*/
         currentVideo: "",
         currentUserId: "",
+        userGender: "",
+        userSize: "",
         noVTOModel: true,
         glassesUpc: $('#upc').text()
     };
@@ -61,14 +63,14 @@
                                     $('<div/>')
                                     .addClass('vto-edit-page vto-edit-retake')
                                     .append('<p>RETAKING YOUR VIDEO WILL REMOVE YOUR CURRENT ONE </p>')
-                                    .append('<a class="vto-retake-cancel button black" >CANCEL</a>')
+                                    .append('<a class="vto-option-cancel button black" >CANCEL</a>')
                                     .append('<a class="vto-retake-confirm outlineButton">RETAKE</a>')
                                 )
                                 .append(
                                     $('<div/>')
                                     .addClass('vto-edit-page vto-edit-delete')
                                     .append('<p>ARE YOU SURE YOU WANT TO REMOVE YOUR VIRTUAL MODEL? </p>')
-                                    .append('<a class="vto-delete-cancel button black" >CANCEL</a>')
+                                    .append('<a class="vto-option-cancel button black" >CANCEL</a>')
                                     .append('<a class="vto-delete-confirm outlineButton">REMOVE</a>')
                                 )
                             )
@@ -199,6 +201,9 @@
                 if ($.cookie('vtoId')){
                     $.cookie("vtoId", 'deleted', {expires: 1, path: '/', domain: 'sunglasshut.com'});
                 }
+                obj.analyticsTrack('option modal: delete modal: confirmed')
+                var vtoUrl = 'http://' + window.location.host + window.location.pathname
+                location.href = vtoUrl;
                 obj.closeVTOModelWindow();
                 $('#sgh-vto-video-container').addClass('active')             
                 $( "#sgh-vto-vtomodel-container" ).removeClass('active')
@@ -216,14 +221,15 @@
                 videoRetake = false;        
                 currentVideoId = "";
                 obj.settings.currentVideo = ""
-                obj.analyticsTrack('option modal: delete modal: confirmed')
+               
                 noVTOModel = true;
                 //console.log('deleteSucceeded() '+currentVideoId)
             }
 
             function renderSucceeded() {
 
-                var id = jQuery.parseJSON( '{ "userId": "'+currentUserId+'", "videoId": "'+currentVideoId+'" }' );
+                //var id = jQuery.parseJSON( '{ "userId": "'+currentUserId+'", "videoId": "'+currentVideoId+'" }' );
+                var id = jQuery.parseJSON( '{ "userId": "'+currentUserId+'", "videoId": "'+currentVideoId+'", "cat": "'+ obj.settings.userGender+'", "style": "'+obj.settings.userSize+'" }' );
                 $.cookie("vtoId", JSON.stringify(id), {expires: 300, path: '/', domain: 'sunglasshut.com'});
                 obj.settings.currentVideo = currentVideoId
                 obj.settings.currentUserId = currentUserId
@@ -470,12 +476,11 @@
                 $('#sgh-vto-video-container').removeClass('active')      
             }
 
-            function generateOptions() {
-                //console.log('generateOptions');
-            }
-
-            function createCookie(videoId) {
+            function createCookie(videoId, gender) {
                 currentVideoId = videoId;
+                obj.settings.userGender = gender.gender;
+                obj.settings.userSize = gender.fit;
+                console.log('createCookie: '+gender.fit)
                 //$("#vto_toggle_button").show();
                 //$("#mainImageContainer").hide();
                  $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide').delay(50).animate({
