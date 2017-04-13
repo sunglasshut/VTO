@@ -1,4 +1,65 @@
-VTO Javascript Integration API 2.0
+
+SGH VTO Integration
+===============================
+
+## Setup By Country 
+
+### Country Code
+For each country you'll have to change *locale* parameter under VTOApp.inti method.
+```javascript
+ VtoApp.init(
+    currentUserId,
+    glassesUpc,
+    'sunglasshut', 
+    'en-US', 
+```
+**locale** parameter is used to set the locale for the user. (en-US)
+ * locale codes: https://support.crowdin.com/api/language-codes/
+
+### Analytics
+Each county will need to setup their own analytics tracking using the VTO call back.
+You'll want to update the **analyticsTrack** method to include your omniture tagging. The code inside will only work on US. 
+
+You'll also need to update the *genericErrorHandler* method include your tracking code
+
+```javascript
+analyticsTrack: function(linkName) {
+            var obj = this
+            var videoId = obj.settings.currentVideo
+            var noVTOModel = obj.settings.noVTOModel;
+            var gender = obj.settings.userGender;
+            var fit = obj.settings.userSize;
+            var user = 'new'
+            if(videoId && noVTOModel !== true){
+                user = 'returning'
+                //console.log('returning')
+            } 
+            if (gender !== '' && gender !== 'undefined'){
+                    gender = gender+': '
+                }else{
+                    gender = ''
+                }
+            if (fit !== '' && fit !== 'undefined'){
+                fit = fit+': '
+            }else{
+                fit = ''
+            }
+            
+			//ENTER TRACKING CODE HERE
+           console.log('track: sgh: vto: '+user+': ' + gender + fit + linkName);
+        },
+ ```
+
+### Desktop Restrictions
+**Compatible Browser** - Currently desktop only works on the follow browsers for both mac and windows. All other browsers should be excluded.
+ * Firefox
+ * Chrome
+
+**HTTPS for Webcame capture** - To capture video from the webcam the request needs to come from https. The current code is setup to look to see if the protocol is https and if not it will switch it.
+
+
+
+#VTO Javascript Integration API 2.0
 ===============================
 
 APIs used to integrate the VTO react application into WCS for both mobile and desktop.
@@ -358,4 +419,69 @@ uploadRetryClass: '',
 }
 }
 
+```
+
+
+## VTO Desktop Analytics Config:
+
+```javascript
+var analyticsConfig = {
+demo: {
+onPageLoad: function() {},
+onFaceSwipe: function() {},
+onCreateModel: function() {},
+createModelClass: ''
+},
+capture: {
+onPageLoad: function() {},
+onValidHeadtrack: function() {},
+onWebcamAllowed: function() {}
+},
+browsererror: {
+onPageLoad: function() {}
+},
+deviceerror: {
+onPageLoad: function() {}
+},
+permissionerror: {
+onPageLoad: function() {}
+},
+processingerror: {
+onPageLoad: function() {},
+onRetry: function() {},
+processingErrorRetryClass: ''
+},
+uploaderror: {
+onPageLoad: function() {},
+onRetry: function() {},
+uploadErrorRetryClass: ''
+},
+upload: {
+onPageLoad: function() {}
+},
+processing: {
+onPageLoad: function() {}
+},
+preview: {
+onPageLoad: function() {},
+onFaceSwipe: function() {},
+previewRetakeClass: '',
+onRetake: function() {},
+previewSaveClass: '',
+onSave: function() {},
+previewContinueClass: '',
+onContinue: function() {}
+},
+render: {
+onPageLoad: function() {},
+onFaceSwipe: function() {},
+onRenderGlasses: function() {}
+},
+comingsoon: {
+onPageLoad: function() {}
+},
+rendererror: {
+onPageLoad: function() {}
+}
+}
 ```
