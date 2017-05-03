@@ -149,6 +149,8 @@ html.vto-bg-no-scroll {
 
 	.vto-application .question-container .button {
 		border-left:  #999 solid 1px !important;
+		font-family: 'brandon_bold', Helvetica, Arial, sans-serif !important;
+		font-size: 16px;
 	}
 	
 	#sgh-vto-overlay-video-buttons a {
@@ -201,7 +203,12 @@ html.vto-bg-no-scroll {
 	}
 
 	.vto-mobile.fullscreenable.fullscreen div.question-container {
-		padding-top: 70px;
+		padding-top: 40px;
+		width: 100%;
+	}
+	.vto-mobile .question-container h3 {
+		font-size: 24px !important;
+		width: 260px;
 	}
 	.vto-mobile.fullscreenable.fullscreen div.preview-page {
 		padding-top: 10px;
@@ -277,7 +284,7 @@ html.vto-bg-no-scroll {
 }
 
 .vto-application .question-container .question-answer {
-	margin-top: 60px !important;
+	margin-top: 0px !important;
 }
 
 .vto-application .question-container .questions-next-button {
@@ -359,6 +366,55 @@ html.vto-bg-no-scroll {
 
 #sgh_vto_overlay .vto-application {
 	font-family: "brandon_regular",Helvetica,Arial,sans-serif !important;
+}
+
+/* 	---------------
+	PDP Model
+	--------------
+*/	
+.vto-on-model__disclaimer {
+	text-align: center;
+    font-size: 12px !important;
+    padding-top: 3px;
+    text-transform: none;
+}
+
+.vto-on-model__toggle {
+	padding: 0px 20px 10px;
+}
+
+.vto-on-model__toggle--disable {
+	opacity: .5;
+	pointer-events: none;
+}
+
+.vto-on-model__toggle .outlineButton {
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.vto-on-model__toggle .outlineButton:focus {
+	background-color: #ccc;
+}
+
+.vto-on-model__toggle .outlineButton--active {
+	background-color: #000;
+    color: #fff;
+    pointer-events: none;
+}
+
+.vto-on-model__copy {
+	font-size: 18px;
+	text-align: center;
+	text-transform: none;
+}
+
+.vto-on-model__copy a {
+	display: inline-block !important;
+    margin: 0px;
+    text-decoration: underline;
+    font-size: 18px;
 }
 
 
