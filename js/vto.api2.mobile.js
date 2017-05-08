@@ -174,7 +174,21 @@
             var renderedGlasses = "";
             var pageType = utag.data.page_type
             var modelVideoId = obj.settings.modelVideoId
-            var analyticsConfig = {}
+            var analyticsConfig = {
+                render: {
+                    onPageLoad: function () {
+                       //obj.analyticsTrack('step 5: review with glasses')
+                    },
+                    onFaceSwipe: function () {
+                        if($('#sgh_vto_overlay.active').length){
+                            obj.analyticsTrack('vto pdp: swipe face: on user')
+                        }else{
+                            obj.analyticsTrack('vto pdp: swipe face: on model')
+                        }
+                        
+                    }
+                }
+            }
             //console.log('upcGender:' +obj.settings.upcGender)
             if(obj.settings.upcGender === 'men' && !$.cookie("vtoModelId")){
                 $('.vto-on-model__toggle a').removeClass('outlineButton--active')
@@ -571,6 +585,14 @@
                         obj.analyticsTrack('step 4: mapping glasses')
                         //console.log('analyticsConfig - mappingGlasses')
                       //  showAnalyticsAlert('mappingGlasses', 'onPageLoad');
+                    }
+                },
+                render: {
+                    onPageLoad: function () {
+                       obj.analyticsTrack('step 5: review with glasses')
+                    },
+                    onFaceSwipe: function () {
+                        obj.analyticsTrack('vto pdp: swipe face')
                     }
                 },
                 reviewWithGlasses: {
