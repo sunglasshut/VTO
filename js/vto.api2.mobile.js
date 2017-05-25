@@ -386,6 +386,15 @@
                        // showAnalyticsAlert('reviewWithoutGlasses', 'onFaceSwipe');
                     }
                 },
+                render: {
+                    onPageLoad: function () {
+                       //obj.analyticsTrack('step 5: review with glasses')
+                    },
+                    onFaceSwipe: function () {
+                        obj.analyticsTrack('vto pdp: swipe face: on user')
+                        
+                    }
+                },            
                 mappingGlasses: {
                     onPageLoad: function () {
                         obj.analyticsTrack('step 4: mapping glasses')
