@@ -377,7 +377,7 @@
                 var polarIcon = (polar) ? '<p class="catalog-polarized">Polarized</p>':'';
                // console.log('polor: '+polarIcon);
 
-                $('#sgh_vto_overlay .info-container').html(
+                $('#sgh_vto_overlay .info-container').html('').html(
                     '<p class="brand">'+brand+'</p>'+
                     polarIcon +
                     '<p class="price">'+price+'</p>'+
@@ -659,7 +659,7 @@
                          }, 600);
                         VtoApp.renderGlasses('vto_modal_app_root',
                               currentVideoId,
-                              glassesUpc,
+                              obj.settings.glassesUpc,
                               {width:$(window).width(), height:$(window).width()},
                               renderSucceeded,
                               obj.genericErrorHandler,
@@ -688,7 +688,7 @@
                      }, 600);
                 VtoApp.renderGlasses('vto_modal_app_root',
                                   currentVideoId,
-                                  glassesUpc,
+                                  obj.settings.glassesUpc,
                                   {width:$(window).width(), height:$(window).width()},
                                   renderSucceeded,
                                   obj.genericErrorHandler,
@@ -711,7 +711,7 @@
                 VtoApp.startCapture(
                     'vto_app_root',
                     currentUserId,
-                    glassesUpc,
+                    obj.settings.glassesUpc,
                     {width:$(window).width(), height:$(window).width()},
                     {
                         onCloseVto: obj.vtoClose,
@@ -735,7 +735,7 @@
                 var $overlayOpen = $('a.sgh-vto-overlay-open')
                 VtoApp.init(
                     currentUserId,
-                    glassesUpc,
+                    obj.settings.glassesUpc,
                     'sunglasshut', 
                     'en-US', 
                     'master',
