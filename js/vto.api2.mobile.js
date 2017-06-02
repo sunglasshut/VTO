@@ -463,7 +463,7 @@
                         $("#video-id").text(currentVideoId);
                         VtoApp.renderGlasses('vto_modal_app_root',
                               currentVideoId,
-                              glassesUpc,
+                              obj.settings.glassesUpc,
                               {width:$(window).width(), height:$(window).width()},
                               renderSucceeded,
                               obj.genericErrorHandler,
@@ -497,7 +497,7 @@
                 }, 300, function() {
                 VtoApp.renderGlasses('vto_modal_app_root',
                                   currentVideoId,
-                                  glassesUpc,
+                                  obj.settings.glassesUpc,
                                   {width:$(window).width(), height:$(window).width()},
                                   renderSucceeded,
                                   obj.genericErrorHandler,
@@ -519,7 +519,7 @@
                 VtoApp.startCapture(
                     'vto_app_root',
                     currentUserId,
-                    glassesUpc,
+                    obj.settings.glassesUpc,
                     {width:$(window).width(), height:$(window).width()},
                     {
                         onCloseVto: obj.vtoClose,
@@ -543,7 +543,7 @@
                 var $overlayOpen = $('a.sgh-vto-overlay-open')
                 VtoApp.init(
                     currentUserId,
-                    glassesUpc,
+                    obj.settings.glassesUpc,
                     'sunglasshut', 
                     'en-US', 
                     'master',
