@@ -8,6 +8,7 @@
         currentUserId: "",
         modelVideoId: "alessandra",
         upcGender: "female",
+        vtoData: {},
         userGender: "",
         userSize: "",
         noVTOModel: true,
@@ -305,7 +306,7 @@
                 'cntry': utag_data.country || ""
             };
             _trackAnalytics(track);
-          //console.log('track: sgh: vto: '+user+': ' + gender + fit + linkName);
+          console.log('track: sgh: vto: '+user+': ' + gender + fit + linkName);
         },
         vtoClose: function() {
             var obj = this
@@ -814,7 +815,8 @@
                 async: true,
                 crossDomain: true,
                 success: function(data) {
-                    //console.log('UPC: '+obj.settings.glassesUpc)
+                    //console.log('data: '+data)
+                    obj.settings.vtoData = data
                     function onSupportedUPC(isSupported) {
                         if ($.cookie('vtoId')  && $.cookie('vtoId') !== 'deleted'){
                             var vtoCookie = JSON.parse($.cookie('vtoId'))
