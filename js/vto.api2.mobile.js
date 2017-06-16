@@ -366,7 +366,7 @@
             
             
             function getProductInfo(){
-                if($('#vto_modal_app_root .info-container').length < 1){
+                if($('#sgh_vto_overlay .info-container').length < 1){
                     $('#vto_modal_app_root').after('<div class="info-container vto-hide"></div>')
                 }
                 var brand = $('#update_cart_total .info-container').find('.brand').text()
@@ -433,8 +433,9 @@
                 $('#sgh-vto-video-container').removeClass('active')             
                
                 $('#vto-open-edit').delay( 300 ).fadeIn( 300 );
+                getProductInfo()
                 if(rendererSuccess != true){
-                    getProductInfo()
+                    
                    
                     $('#vto-open-edit').on( "click", function() {
                        $('#sgh-vto-video-edit-container').fadeIn( 300 );
