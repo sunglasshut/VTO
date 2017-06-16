@@ -99,6 +99,16 @@
     box-sizing: border-box;
     padding-right: 0px !important;
 }
+
+.show-vto .button__vto--left-side {
+    background-color: #5d5d5d;
+}
+
+.show-vto .button__vto--left-side:hover {
+    background-color: #111;
+}
+
+
 .button__vto--left-side i {
 	display: inline-block;
     position: absolute;

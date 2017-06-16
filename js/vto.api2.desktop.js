@@ -9,7 +9,7 @@
             "leftSide" - for VTO cta on left side: 
             "belowImg" - for VTO cat directly under the main image
         */
-        ctaTest: "belowImg", 
+        ctaTest: "leftSide", 
 
         currentVideo: "",
         currentUserId: "",
@@ -128,7 +128,7 @@
                 obj.closeVTOModelWindow()
             });
            
-            console.log('vtoElements()');
+           // console.log('vtoElements()');
         },
         analyticsTrack: function(linkName) {
             var obj = this
@@ -167,7 +167,7 @@
                 'cntry': utag_data.country || ""
             };
             _trackAnalytics(track);
-           console.log('track: sgh: vto: '+user+': ' + gender + fit + linkName);
+          // console.log('track: sgh: vto: '+user+': ' + gender + fit + linkName);
         },
         vtoClose: function() {
             var obj = this
@@ -181,6 +181,7 @@
         closeVTOModelWindow: function () {
             var obj = this
             $('#pdp-container').removeClass('show-vto');
+            $('body').removeClass('show-vto')
             $( '#sgh-vto-overlay_model' ).addClass('vto-hide').removeClass('active');
             obj.analyticsTrack('closed vto model');
             //console.log("closeVTOModelWindow")
@@ -287,7 +288,7 @@
                 //console.log('deleteSucceeded() '+currentVideoId)
             }
             function captureCookie(videoRetake){
-                console.log("captureCookie: "+videoRetake)
+               //console.log("captureCookie: "+videoRetake)
                 var cookieValue = jQuery.parseJSON( '{ "userId": "'+currentUserId+'", "retake": "'+videoRetake+'", "upc": "'+glassesUpc+'"}' );
                 $.cookie("vtoCapture", JSON.stringify(cookieValue), {path: '/', domain: 'sunglasshut.com'});
    
@@ -474,7 +475,8 @@
                // console.log('renderedGlasses" '+renderedGlasses+ " upc: "+upc+" currentVideoId: "+currentVideoId)
                // console.log('self.supportedFeatures.rendering'+this.supportedFeatures.rendering)
                 if (renderedGlasses !== upc && currentVideoId || videoRetake === true ) {
-                    $('#pdp-container').addClass('show-vto')     
+                    $('#pdp-container').addClass('show-vto')  
+                    $('body').addClass('show-vto')   
                     $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide')
                     $("#video-id").text(currentVideoId);
                     VtoApp.renderGlasses('vto_modal_app_root',
@@ -491,6 +493,7 @@
                 }else{
                     $( "#sgh-vto-vtomodel-container" ).addClass('active').removeClass('vto-hide')
                     $('#pdp-container').addClass('show-vto')
+                    $('body').addClass('show-vto')
                     $('#vto-open-edit').fadeIn( 200 );
                     obj.analyticsTrack('vto pdp: reopened' )
                 }
@@ -504,6 +507,7 @@
                 obj.settings.userSize = gender.fit;
                 // console.log('createCookie: '+gender.fit)
                 $('#pdp-container').addClass('show-vto')  
+                $('body').addClass('show-vto')
                 $('#sgh_vto_overlay').removeClass('active').addClass('vto-hide').hide();
                 $( "#sgh-vto-overlay_model" ).addClass('active').removeClass('vto-hide')
                 VtoApp.renderGlasses('vto_modal_app_root',
@@ -588,7 +592,7 @@
                     'master',
                      analyticsConfig,
                     function (userId, supportedFeatures) {
-                       console.log('VtoApp.init: ' + checkForCaptureCookie())
+                       //console.log('VtoApp.init: ' + checkForCaptureCookie())
                         //console.log('currentVideoId: '+checkForCaptureCookie())
                         $("#user-id").text("#user-id "+userId);
                         currentUserId = userId;
@@ -626,7 +630,7 @@
                                 if($.cookie("vtoCapture")){
                                     $.cookie("vtoCapture", null, {path: '/', domain: 'sunglasshut.com'});
                                 }
-                                console.log("vtoId: "+ checkForCaptureCookie())
+                               // console.log("vtoId: "+ checkForCaptureCookie())
                             } else {
                                 $overlayOpen.on( "click", function() {
                                     vtoActive()
@@ -690,7 +694,7 @@
                                     obj.settings.noVTOModel = false
                                 }
                         }
-                       console.log('onSupportedUPC:'+isSupported)
+                      // console.log('onSupportedUPC:'+isSupported)
                         if (isSupported === true){
                             
                             obj.vtoElements()
@@ -700,7 +704,7 @@
                         }else{
                              obj.analyticsTrack('not supported upc:')
                         }
-                       console.log('onSupportedUPC:'+isSupported)
+                       //console.log('onSupportedUPC:'+isSupported)
                     }
                     VtoApp.isUpcSupported(
                         obj.settings.glassesUpc,
@@ -708,7 +712,7 @@
                         obj.genericErrorHandler
                     )
                    
-                    console.log('LOADED' );
+                   // console.log('LOADED' );
                 },
                 complete: function(){
                     $('.ajax-loader-wrap, #ajax-container').show();
@@ -718,7 +722,7 @@
                   console.log( "error");
                 }
             })
-            console.log( "vtoAPI 2.0");
+           // console.log( "vtoAPI 2.0");
         },
         init: function() {
             return this.vtoAPI(), this;
@@ -728,5 +732,5 @@
 
 }()), $(function() {
     sghVTO.init();
-    console.log('sghVTO.init()')
+   // console.log('sghVTO.init()')
 });
